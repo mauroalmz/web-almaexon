@@ -6,34 +6,29 @@
     <title>Almaexon | Soporte IT para Empresas y Profesionales</title>
     <meta name="description" content="Soporte IT profesional, mantenimiento de servidores, backups y seguridad para pequeñas y medianas empresas en Zona Sur y CABA.">
     
-    <!-- Etiquetas SEO para compartir en WhatsApp, LinkedIn, etc. -->
     <meta property="og:title" content="Almaexon | Soporte IT B2B">
     <meta property="og:description" content="Soporte IT · Infraestructura · Seguridad">
     <meta property="og:image" content="Almaexon.png">
     <meta property="og:type" content="website">
 
-    <!-- Favicon (Ícono de la pestaña) -->
     <link rel="icon" type="image/x-icon" href="icono.ico">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#0C1829',   // Azul Noche
-                            accent: '#2596BE', // Celeste Conexión
-                            white: '#FFFFFF',  // Blanco Puro
-                            alert: '#F1C40F',  // Amarillo Sistema
+                            dark: '#0C1829',
+                            accent: '#2596BE',
+                            white: '#FFFFFF',
+                            alert: '#F1C40F',
                             muted: '#9CA3AF'
                         }
                     },
@@ -58,14 +53,11 @@
             font-family: 'Roboto', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
-
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #0C1829; }
         ::-webkit-scrollbar-thumb { background: #2596BE; border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: #1b7a9b; }
 
-        /* Glassmorphism Classes */
         .glass-panel {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -76,8 +68,6 @@
             background: rgba(255, 255, 255, 0.04);
             border-color: rgba(37, 150, 190, 0.3);
         }
-
-        /* Ambient Glow Effects */
         .ambient-glow-1 {
             position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw;
             background: radial-gradient(circle, rgba(37,150,190,0.15) 0%, rgba(12,24,41,0) 70%);
@@ -92,43 +82,44 @@
 </head>
 <body class="relative overflow-x-hidden selection:bg-brand-accent selection:text-white">
 
-    <!-- Background Ambient Effects -->
     <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
 
     <!-- Header / Navbar -->
     <header class="fixed w-full top-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto px-6 lg:px-12 py-4 flex justify-between items-center relative">
-            <!-- Logo Local -->
             <a href="#" class="flex items-center gap-3 group">
                 <img src="Almaexon.png" alt="Almaexon Logo" class="h-10 w-auto object-contain transition-transform group-hover:scale-105" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
-                <!-- Fallback CSS por si borras la imagen por error -->
-                <div id="fallback-logo" style="display:none; width: 30px; height: 34px; background: #2596BE; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
+                <img id="fallback-logo" src="icono.ico" alt="Almaexon" style="display:none; height:34px; width:auto; object-fit:contain;">
                 <span class="text-xl font-primary font-bold tracking-wide text-white">Almaexon</span>
             </a>
 
             <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-secondary font-medium text-gray-300">
+            <nav class="hidden md:flex items-center gap-6 text-sm font-secondary font-medium text-gray-300">
                 <a href="#soluciones" class="hover:text-brand-accent transition-colors">Soluciones</a>
                 <a href="#planes" class="hover:text-brand-accent transition-colors">Planes Mensuales</a>
                 <a href="#nosotros" class="hover:text-brand-accent transition-colors">Nosotros</a>
-                <a href="#contacto" class="px-5 py-2.5 bg-brand-accent text-brand-dark font-bold rounded-lg hover:bg-white transition-all shadow-glow">Solicitar Diagnóstico</a>
+                <!-- ✅ BOTÓN PROMO AGREGADO -->
+                <a href="https://mauroalmz.github.io/web-almaexon/promo.html" class="px-4 py-2 border border-brand-alert text-brand-alert font-bold rounded-lg hover:bg-brand-alert hover:text-brand-dark transition-all text-sm">🎁 Diagnóstico Gratis</a>
+                <a href="#contacto" class="px-5 py-2.5 bg-brand-accent text-brand-dark font-bold rounded-lg hover:bg-white transition-all shadow-glow">Contacto</a>
             </nav>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-white text-3xl focus:outline-none transition-transform hover:scale-110">☰</button>
+            <!-- ✅ BUG CORREGIDO: eliminada la URL en la clase CSS del botón -->
+            <button id="mobile-menu-btn" class="md:hidden text-white text-3xl focus:scale-110 transition-transform">☰</button>
         </div>
 
         <!-- Mobile Nav Dropdown -->
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-brand-dark/95 backdrop-blur-xl border-b border-white/10 flex flex-col shadow-2xl transition-all duration-300 md:hidden">
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-brand-dark/95 backdrop-blur-xl border-b border-white/10 flex flex-col shadow-2xl md:hidden">
             <a href="#soluciones" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Soluciones</a>
             <a href="#planes" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Planes Mensuales</a>
             <a href="#nosotros" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Nosotros</a>
+            <!-- ✅ BOTÓN PROMO EN MOBILE -->
+            <a href="https://mauroalmz.github.io/web-almaexon/promo.html" class="px-6 py-4 text-brand-alert font-bold hover:bg-white/5 border-b border-white/5">🎁 Diagnóstico Gratis</a>
             <a href="#contacto" class="px-6 py-4 text-brand-accent font-bold hover:bg-white/5">Solicitar Diagnóstico</a>
         </div>
     </header>
 
-    <!-- 1. HERO SECTION (El Gancho) -->
+    <!-- 1. HERO -->
     <section class="relative pt-40 pb-24 md:pt-48 md:pb-32 px-6 lg:px-12 flex flex-col items-center text-center min-h-[90vh] justify-center">
         <span class="text-brand-accent font-tech text-sm md:text-base uppercase tracking-[0.2em] mb-6 block border border-brand-accent/30 bg-brand-accent/10 py-1.5 px-4 rounded-full">Soporte IT B2B en Argentina</span>
         
@@ -141,7 +132,6 @@
         </p>
         
         <div class="flex flex-col sm:flex-row gap-5 w-full justify-center">
-            <!-- Link real a WhatsApp con el número brindado -->
             <a href="https://wa.me/5491154198091?text=Hola%20Almaexon,%20me%20interesa%20solicitar%20un%20diagnóstico%20IT%20para%20mi%20empresa." target="_blank" class="px-8 py-4 bg-brand-accent text-brand-dark font-primary font-bold text-lg rounded-xl hover:bg-white hover:-translate-y-1 transition-all shadow-glow flex items-center justify-center gap-3">
                 <span class="text-xl">💬</span> Hablar por WhatsApp
             </a>
@@ -151,14 +141,13 @@
         </div>
     </section>
 
-    <!-- 1.5. EL PROBLEMA (Agitación) -->
+    <!-- 1.5. EL PROBLEMA -->
     <section class="py-24 bg-black/40 border-y border-white/5 relative">
         <div class="container mx-auto px-6 lg:px-12 max-w-6xl">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-primary font-bold text-white mb-4">La tecnología debería impulsar tu negocio, no frenarlo.</h2>
                 <p class="text-gray-400 text-lg">Si te identificás con alguno de estos problemas, necesitás un equipo de IT real.</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="glass-panel p-8 rounded-2xl border-t-2 border-t-red-500/50">
                     <div class="text-3xl mb-4">⚠️</div>
@@ -179,7 +168,7 @@
         </div>
     </section>
 
-    <!-- 2. SERVICIOS (Soluciones orientadas al cliente) -->
+    <!-- 2. SERVICIOS -->
     <section id="soluciones" class="py-32 px-6 lg:px-12">
         <div class="container mx-auto max-w-6xl">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -191,9 +180,7 @@
                     Nuestra infraestructura de servicios está diseñada para cubrir todas las necesidades tecnológicas de una PyME moderna.
                 </p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Servicio 1 -->
                 <div class="glass-panel p-10 rounded-2xl group relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 rounded-full blur-3xl group-hover:bg-brand-accent/20 transition duration-500"></div>
                     <div class="w-14 h-14 bg-brand-dark border border-brand-accent rounded-xl flex items-center justify-center text-2xl mb-6 shadow-glow">🖥️</div>
@@ -205,8 +192,6 @@
                         <li class="flex items-center gap-2"><span class="text-brand-accent">✓</span> Optimización de sistemas operativos</li>
                     </ul>
                 </div>
-
-                <!-- Servicio 2 -->
                 <div class="glass-panel p-10 rounded-2xl group relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 rounded-full blur-3xl group-hover:bg-brand-accent/20 transition duration-500"></div>
                     <div class="w-14 h-14 bg-brand-dark border border-brand-accent rounded-xl flex items-center justify-center text-2xl mb-6 shadow-glow">🌐</div>
@@ -218,8 +203,6 @@
                         <li class="flex items-center gap-2"><span class="text-brand-accent">✓</span> Compartición de archivos con permisos estrictos</li>
                     </ul>
                 </div>
-
-                <!-- Servicio 3 -->
                 <div class="glass-panel p-10 rounded-2xl group relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-brand-alert/10 rounded-full blur-3xl group-hover:bg-brand-alert/20 transition duration-500"></div>
                     <div class="w-14 h-14 bg-brand-dark border border-brand-alert rounded-xl flex items-center justify-center text-2xl mb-6 shadow-glow-alert">🔒</div>
@@ -231,8 +214,6 @@
                         <li class="flex items-center gap-2"><span class="text-brand-alert">✓</span> Instalación de sistemas CCTV y control de acceso</li>
                     </ul>
                 </div>
-
-                <!-- Servicio 4 -->
                 <div class="glass-panel p-10 rounded-2xl group relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 rounded-full blur-3xl group-hover:bg-brand-accent/20 transition duration-500"></div>
                     <div class="w-14 h-14 bg-brand-dark border border-brand-accent rounded-xl flex items-center justify-center text-2xl mb-6 shadow-glow">⚡</div>
@@ -248,7 +229,7 @@
         </div>
     </section>
 
-    <!-- 3. PLANES MENSUALES (El corazón del negocio) -->
+    <!-- 3. PLANES MENSUALES -->
     <section id="planes" class="py-32 bg-black/40 border-y border-white/5">
         <div class="container mx-auto px-6 lg:px-12 max-w-7xl">
             <div class="text-center mb-20">
@@ -258,15 +239,11 @@
                     Dejá de pagar por hora cada vez que algo se rompe. Un abono mensual te garantiza prioridad, mantenimiento constante y cero sorpresas en tu facturación.
                 </p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                
-                <!-- Plan Esencial -->
                 <div class="glass-panel p-8 rounded-3xl border border-white/10">
                     <h3 class="text-2xl font-primary font-bold text-white mb-2">Esencial</h3>
                     <p class="text-sm text-gray-400 mb-6 min-h-[40px]">Ideal para profesionales independientes y estudios pequeños (hasta 5 PCs).</p>
                     <div class="text-4xl font-bold text-white mb-8">Consultar<span class="text-sm text-gray-500 font-normal">/mes</span></div>
-                    
                     <ul class="space-y-4 text-sm text-gray-300 mb-10">
                         <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div><strong>Soporte Remoto Ilimitado</strong> (horario hábil)</div></li>
                         <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div><strong>1 Visita Preventiva Mensual</strong> física</div></li>
@@ -276,16 +253,14 @@
                     <a href="https://wa.me/5491154198091?text=Hola%20Almaexon,%20me%20interesa%20consultar%20por%20el%20Plan%20Esencial." target="_blank" class="block w-full py-3 text-center rounded-xl border border-white/20 text-white font-bold hover:bg-white/5 transition-colors">Cotizar Plan</a>
                 </div>
 
-                <!-- Plan Profesional (DESTACADO) -->
                 <div class="bg-gradient-to-b from-brand-dark to-[#0f2a4a] p-10 rounded-3xl border-2 border-brand-accent shadow-glow relative transform md:-translate-y-4">
                     <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-accent text-brand-dark font-bold px-4 py-1 rounded-full text-sm tracking-wide">MÁS ELEGIDO</div>
                     <h3 class="text-2xl font-primary font-bold text-brand-accent mb-2">Profesional</h3>
                     <p class="text-sm text-gray-300 mb-6 min-h-[40px]">Para PyMEs (5 a 20 PCs) que necesitan estabilidad total operativa.</p>
                     <div class="text-4xl font-bold text-white mb-8">A Medida<span class="text-sm text-brand-accent/70 font-normal">/mes</span></div>
-                    
                     <ul class="space-y-4 text-sm text-gray-200 mb-10">
                         <li class="flex items-start gap-3"><span class="text-brand-alert mt-0.5 font-bold">★</span> <div><strong>Monitoreo Silencioso 24/7</strong> de hardware</div></li>
-                        <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div>Soporte Remoto Prioritario (SLA < 4hs)</div></li>
+                        <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div>Soporte Remoto Prioritario (SLA &lt; 4hs)</div></li>
                         <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div><strong>Visitas por incidentes incluidas</strong> (sin cargo extra)</div></li>
                         <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div><strong>Gestión de Red y Wi-Fi</strong></div></li>
                         <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div>Estrategia de Backup automatizado</div></li>
@@ -293,27 +268,24 @@
                     <a href="https://wa.me/5491154198091?text=Hola%20Almaexon,%20me%20interesa%20solicitar%20una%20propuesta%20para%20el%20Plan%20Profesional." target="_blank" class="block w-full py-4 text-center rounded-xl bg-brand-accent text-brand-dark font-bold hover:bg-white transition-colors shadow-lg">Solicitar Propuesta</a>
                 </div>
 
-                <!-- Plan Corporativo -->
                 <div class="glass-panel p-8 rounded-3xl border border-white/10">
                     <h3 class="text-2xl font-primary font-bold text-white mb-2">Corporativo</h3>
                     <p class="text-sm text-gray-400 mb-6 min-h-[40px]">Infraestructura compleja, servidores locales o en la nube y múltiples sucursales.</p>
                     <div class="text-4xl font-bold text-white mb-8">Proyecto<span class="text-sm text-gray-500 font-normal">/mes</span></div>
-                    
                     <ul class="space-y-4 text-sm text-gray-300 mb-10">
                         <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div><strong>Administración de Servidores</strong> (Windows/Linux)</div></li>
-                        <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div>Soporte Urgente (SLA < 2hs)</div></li>
+                        <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div>Soporte Urgente (SLA &lt; 2hs)</div></li>
                         <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div>Políticas de Seguridad y Firewall</div></li>
                         <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div>Disaster Recovery Plan (DRP)</div></li>
                         <li class="flex items-start gap-3"><span class="text-brand-accent mt-0.5">✔</span> <div>Asesoría en compras IT e Infraestructura</div></li>
                     </ul>
                     <a href="https://wa.me/5491154198091?text=Hola%20Almaexon,%20me%20gustaría%20agendar%20una%20reunión%20por%20sus%20servicios%20Corporativos." target="_blank" class="block w-full py-3 text-center rounded-xl border border-white/20 text-white font-bold hover:bg-white/5 transition-colors">Agendar Reunión</a>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- 4. SOBRE NOSOTROS (Autoridad) -->
+    <!-- 4. SOBRE NOSOTROS -->
     <section id="nosotros" class="py-32 px-6 lg:px-12">
         <div class="container mx-auto max-w-6xl">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -325,8 +297,6 @@
                         <p>Nuestro enfoque es 100% preventivo: desarrollamos documentación interna rigurosa, estandarizamos procesos de instalación y utilizamos herramientas de diagnóstico propio para asegurar que la tecnología de tu negocio sea <strong>estable, ordenada y segura.</strong></p>
                         <p class="text-brand-accent font-bold">Nuestra filosofía es simple: Si nosotros trabajamos bien en silencio, tu empresa nunca deja de facturar por un problema técnico.</p>
                     </div>
-                    
-                    <!-- Stats / Trust markers -->
                     <div class="grid grid-cols-2 gap-6 mt-12 border-t border-white/10 pt-8">
                         <div>
                             <div class="text-3xl font-bold text-white mb-1 font-tech">100%</div>
@@ -339,11 +309,8 @@
                     </div>
                 </div>
 
-                <!-- Abstract Visual representing Order/Data -->
                 <div class="relative h-[500px] rounded-3xl overflow-hidden glass-panel border border-brand-accent/20 flex items-center justify-center bg-[#070e1a]">
                     <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#2596be 1px, transparent 1px); background-size: 30px 30px;"></div>
-                    
-                    <!-- Pure HTML/CSS representation of a Server Rack / Dashboard -->
                     <div class="w-3/4 h-3/4 bg-brand-dark/80 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl p-6 flex flex-col gap-4 relative z-10">
                         <div class="flex items-center gap-2 mb-2">
                             <div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -381,19 +348,16 @@
         </div>
     </section>
 
-    <!-- 5. CONTACTO (Llamado a la acción masivo) -->
+    <!-- 5. CONTACTO -->
     <section id="contacto" class="py-32 relative overflow-hidden bg-brand-accent">
-        <!-- Overlay pattern -->
         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#000 2px, transparent 2px); background-size: 20px 20px;"></div>
-        
         <div class="container mx-auto px-6 max-w-4xl text-center relative z-10">
             <h2 class="text-4xl md:text-6xl font-primary font-extrabold text-brand-dark mb-8 leading-tight">
                 Si tu empresa depende de la tecnología, necesitás que funcione siempre.
             </h2>
             <p class="text-brand-dark/80 text-xl mb-12 font-medium">
-                Dejemos de lado las fallas y el estrés técnico. Empecemos a organizar tu infraestructura hoy mismo. Escribinos para un diagnóstico gratuito de situación.
+                Dejemos de lado las fallas y el estrés técnico. Empecemos a organizar tu infraestructura hoy mismo.
             </p>
-            
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
                 <a href="https://wa.me/5491154198091?text=Hola%20Almaexon,%20necesito%20consultar%20por%20sus%20servicios%20IT%20para%20mi%20empresa." target="_blank" class="px-8 py-5 bg-brand-dark text-white font-primary font-bold text-lg rounded-xl hover:bg-black hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3">
                     <span class="text-2xl">📱</span> Chatear por WhatsApp
@@ -402,16 +366,13 @@
                     <span class="text-2xl">✉️</span> Enviar Email
                 </a>
             </div>
-            
-            <p class="mt-8 text-sm text-brand-dark/70 font-tech">Respuesta promedio en horario hábil: < 30 minutos.</p>
+            <p class="mt-8 text-sm text-brand-dark/70 font-tech">Respuesta promedio en horario hábil: &lt; 30 minutos.</p>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="bg-[#070e1a] py-16 border-t border-white/5">
         <div class="container mx-auto px-6 lg:px-12 max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-12">
-            
-            <!-- Brand -->
             <div class="md:col-span-2">
                 <a href="#" class="flex items-center gap-3 mb-6">
                     <img src="Almaexon.png" alt="Almaexon Logo" class="h-8 w-auto object-contain" onerror="this.style.display='none';">
@@ -422,8 +383,6 @@
                 </p>
                 <div class="text-sm text-gray-500 font-tech">📍🌎 Buenos Aires, Argentina</div>
             </div>
-
-            <!-- Links -->
             <div>
                 <h4 class="text-white font-bold mb-6 font-primary">Servicios</h4>
                 <ul class="space-y-3 text-sm text-gray-400">
@@ -431,15 +390,14 @@
                     <li><a href="#soluciones" class="hover:text-brand-accent transition-colors">Redes y Servidores</a></li>
                     <li><a href="#soluciones" class="hover:text-brand-accent transition-colors">Backups y Seguridad</a></li>
                     <li><a href="#planes" class="hover:text-brand-accent transition-colors">Abonos de Mantenimiento</a></li>
+                    <li><a href="https://mauroalmz.github.io/web-almaexon/promo.html" class="hover:text-brand-alert text-brand-alert/80 transition-colors">🎁 Diagnóstico Gratis</a></li>
                 </ul>
             </div>
-
-            <!-- Contact -->
             <div>
                 <h4 class="text-white font-bold mb-6 font-primary">Contacto</h4>
                 <ul class="space-y-3 text-sm text-gray-400">
-                    <li class="hover:text-brand-accent transition-colors"><a href="mailto:contacto@almaexon.com.ar">contacto@almaexon.com.ar</a></li>
-                    <li class="hover:text-brand-accent transition-colors"><a href="https://wa.me/5491154198091" target="_blank">WhatsApp Comercial</a></li>
+                    <li><a href="mailto:contacto@almaexon.com.ar" class="hover:text-brand-accent transition-colors">contacto@almaexon.com.ar</a></li>
+                    <li><a href="https://wa.me/5491154198091" target="_blank" class="hover:text-brand-accent transition-colors">WhatsApp Comercial</a></li>
                     <li class="mt-6">
                         <a href="https://www.linkedin.com/company/almaexon" target="_blank" class="text-brand-accent hover:text-white transition-colors flex items-center gap-2">
                             <span class="font-bold text-lg leading-none">in</span> Seguinos en LinkedIn
@@ -448,25 +406,21 @@
                 </ul>
             </div>
         </div>
-        
         <div class="container mx-auto px-6 lg:px-12 max-w-7xl mt-16 pt-8 border-t border-white/5 text-center flex flex-col md:flex-row justify-between items-center gap-4">
             <p class="text-xs text-gray-600 font-tech">© 2026 Almaraz Group Information Technology. Todos los derechos reservados.</p>
             <div class="text-xs text-gray-600 font-tech">Construido para escalar.</div>
         </div>
     </footer>
 
-    <!-- Script para el menú de celulares -->
     <script>
         const btnMenu = document.getElementById('mobile-menu-btn');
         const menuDropdown = document.getElementById('mobile-menu');
         const menuLinks = menuDropdown.querySelectorAll('a');
 
-        // Abrir/Cerrar menú con el botón
         btnMenu.addEventListener('click', () => {
             menuDropdown.classList.toggle('hidden');
         });
 
-        // Cerrar menú al tocar cualquier link
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 menuDropdown.classList.add('hidden');
@@ -474,6 +428,4 @@
         });
     </script>
 </body>
-
 </html>
-
