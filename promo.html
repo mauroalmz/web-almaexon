@@ -4,64 +4,374 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diagnóstico Remoto Gratis - Almaexon</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body { 
-            background-color: #0C1829; 
-            color: #FFFFFF; 
-            font-family: 'Roboto', sans-serif; 
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:       #080F1A;
+            --bg2:      #0E1C2F;
+            --card:     #111D2E;
+            --border:   #1E3050;
+            --cyan:     #2596BE;
+            --cyan-dim: rgba(37, 150, 190, 0.15);
+            --cyan-glow:rgba(37, 150, 190, 0.35);
+            --text:     #E8EFF7;
+            --muted:    #7A93AD;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ---- FONDO ANIMADO ---- */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 70% 20%, rgba(37,150,190,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(37,150,190,0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ---- HEADER ---- */
+        header {
+            padding: 28px 0 20px;
             text-align: center;
+            border-bottom: 1px solid var(--border);
         }
-        .hero-section {
-            padding: 80px 20px;
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: var(--text);
         }
-        .text-alma { color: #2596BE; }
-        .btn-gigante {
-            background-color: #2596BE;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 15px 30px;
-            border-radius: 50px;
+        .logo span { color: var(--cyan); }
+
+        /* ---- HERO ---- */
+        .hero {
+            padding: 72px 0 56px;
+            text-align: center;
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--cyan-dim);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            border: none;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(37, 150, 190, 0.4);
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 28px;
         }
-        .btn-gigante:hover {
-            background-color: #1b7ba0;
-            transform: scale(1.05);
-            color: white;
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
         }
-        .features { margin-top: 40px; text-align: left; }
-        .feature-item { margin-bottom: 20px; font-size: 1.1rem; }
+
+        h1 em {
+            font-style: normal;
+            color: var(--cyan);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto 44px;
+        }
+
+        .subtitle strong { color: var(--text); }
+
+        /* ---- BOTÓN PRINCIPAL ---- */
+        .btn-cta {
+            display: inline-block;
+            background: var(--cyan);
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            padding: 18px 40px;
+            border-radius: 100px;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 0 32px var(--cyan-glow), 0 4px 16px rgba(0,0,0,0.3);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+        .btn-cta:hover {
+            background: #1e82a8;
+            transform: translateY(-2px);
+            box-shadow: 0 0 48px var(--cyan-glow), 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .cta-note {
+            margin-top: 14px;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        /* ---- FEATURES ---- */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 64px 0;
+            animation: fadeUp 0.7s 0.15s ease both;
+        }
+
+        @media (max-width: 520px) {
+            .features { grid-template-columns: 1fr; }
+        }
+
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px 20px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .feature-card:hover {
+            border-color: var(--cyan);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .feature-card p {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        /* ---- PROCESO ---- */
+        .proceso {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 36px 32px;
+            margin-bottom: 64px;
+            animation: fadeUp 0.7s 0.25s ease both;
+        }
+
+        .proceso h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .steps { display: flex; flex-direction: column; gap: 20px; }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--cyan-dim);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-text h4 {
+            font-size: 0.97rem;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .step-text p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* ---- CTA FINAL ---- */
+        .cta-final {
+            text-align: center;
+            padding: 0 0 80px;
+            animation: fadeUp 0.7s 0.35s ease both;
+        }
+
+        .cta-final h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .cta-final p {
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        /* ---- FOOTER ---- */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 24px 0;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        /* ---- ANIMACIÓN ---- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container hero-section">
-        <h1 class="fw-bold mb-4" style="font-size: 3rem;">ALMA<span class="text-alma">EXON</span></h1>
-        
-        <h2 class="fw-bold mb-3">¿Tu PC tarda una eternidad en arrancar?</h2>
-        <p class="lead text-secondary mb-5">No gastes plata a ciegas. Te hacemos un <strong>Diagnóstico Remoto 100% Bonificado</strong> para decirte exactamente qué le pasa a tu equipo.</p>
-        
-        <div class="row justify-content-center">
-            <div class="col-md-6 features">
-                <div class="card p-4" style="background-color: #1E293B; border: 1px solid #334155;">
-                    <div class="feature-item">✅ <strong>Sin moverte de tu casa:</strong> Nos conectamos por sistema seguro.</div>
-                    <div class="feature-item">✅ <strong>Transparente:</strong> Vas a ver en tu pantalla todo lo que hacemos.</div>
-                    <div class="feature-item">✅ <strong>Rápido:</strong> En 15 minutos detectamos el problema.</div>
-                    <div class="feature-item">⚠️ <strong>Cupos limitados:</strong> Solo tomamos 10 diagnósticos gratis por semana.</div>
+<header>
+    <div class="container">
+        <div class="logo">ALMA<span>EXON</span></div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="badge">⚡ Oferta por tiempo limitado</div>
+            <h1>¿Tu PC va lenta,<br>cuelga o no arranca?</h1>
+            <p class="subtitle">
+                No gastes plata a ciegas. Te hacemos un
+                <strong>Diagnóstico Remoto 100% gratis</strong>
+                para decirte exactamente qué tiene tu equipo — sin que salgas de tu casa.
+            </p>
+            <a href="URL_DE_TU_GOOGLE_FORM_ACA" class="btn-cta">👉 Solicitar diagnóstico gratis</a>
+            <p class="cta-note">Solo 10 turnos por semana · Sin compromiso · 100% gratuito</p>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🏠</div>
+                <h3>Sin moverte de tu casa</h3>
+                <p>Nos conectamos de forma remota y segura. Vos ves todo lo que hacemos en tu pantalla en tiempo real.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>En 15 minutos lo sabemos</h3>
+                <p>Detectamos el problema con herramientas profesionales. Nada de "puede ser esto o aquello".</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Informe detallado</h3>
+                <p>Te explicamos en palabras simples qué encontramos y cuáles son tus opciones reales para solucionarlo.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Sin sorpresas</h3>
+                <p>El diagnóstico es gratis, siempre. Si después querés continuar con la reparación, vos decidís.</p>
+            </div>
+        </section>
+
+        <!-- PROCESO -->
+        <section class="proceso">
+            <h2>¿Cómo funciona?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-text">
+                        <h4>Completás el formulario</h4>
+                        <p>Nos contás el problema y elegís el horario que mejor te viene.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-text">
+                        <h4>Te confirmamos el turno</h4>
+                        <p>Te contactamos por WhatsApp para confirmar y mandarte el enlace de acceso remoto.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-text">
+                        <h4>Diagnóstico en vivo</h4>
+                        <p>Nos conectamos a tu equipo (con tu permiso) y analizamos todo en 15 minutos.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-text">
+                        <h4>Te damos el veredicto</h4>
+                        <p>Explicación clara, sin tecnicismos. Y si querés seguir, te damos el presupuesto al toque.</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="mt-5">
-            <a href="URL_DE_TU_GOOGLE_FORM_ACA" class="btn btn-gigante">👉 Solicitar mi Diagnóstico Gratis</a>
-        </div>
-        
-        <p class="mt-4 text-secondary small">Soporte IT Especializado - Almaexon</p>
+        <!-- CTA FINAL -->
+        <section class="cta-final">
+            <h2>Los turnos se llenan rápido.</h2>
+            <p>Reservá el tuyo ahora — es gratis y sin ningún compromiso.</p>
+            <a href="URL_DE_TU_GOOGLE_FORM_ACA" class="btn-cta">👉 Solicitar diagnóstico gratis</a>
+        </section>
+
     </div>
+</main>
+
+<footer>
+    <div class="container">
+        Almaexon · Soporte IT Especializado · Argentina
+    </div>
+</footer>
 
 </body>
 </html>
