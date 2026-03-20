@@ -3,30 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Tu PC tiene problemas? · Diagnóstico Gratis · Almaexon</title>
+    <title>¿Tu PC tiene problemas? · Diagnóstico Gratis · Alma by Almaexon</title>
     <meta name="description" content="Diagnóstico remoto 100% gratis para tu PC. Sin moverte de casa. En 15 minutos sabemos qué tiene tu equipo y qué hacer.">
     <link rel="icon" type="image/x-icon" href="icono.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg:        #060D18;
-            --card:      #0F1E30;
-            --card2:     #0D1A28;
-            --border:    #1A2D46;
-            --border2:   #243D5A;
-            --cyan:      #29A8D4;
-            --cyan-dim:  rgba(41, 168, 212, 0.1);
-            --cyan-glow: rgba(41, 168, 212, 0.4);
-            --cyan2:     #1DD6C0;
-            --accent:    #F5A623;
-            --red:       #E05252;
-            --text:      #ECF2FA;
-            --muted:     #6E8DA8;
-            --muted2:    #9DB5CB;
+            /* Fondo oscuro suave — no negro puro, tira al gris azulado cálido */
+            --bg:        #111827;
+            --bg2:       #1A2333;
+            --card:      #1E2D40;
+            --card2:     #192638;
+            --border:    #2A3D54;
+            --border2:   #364F6B;
+
+            /* Paleta cálida: teal/cyan más cálido, menos frío */
+            --teal:      #00AEEF;
+            --teal-warm: #00C9B1;
+            --teal-dim:  rgba(0, 174, 239, 0.12);
+            --teal-glow: rgba(0, 174, 239, 0.35);
+
+            /* Acento cálido ámbar */
+            --amber:     #F59E0B;
+            --amber-dim: rgba(245, 158, 11, 0.12);
+            --red:       #EF4444;
+
+            --text:      #F0F4F8;
+            --text2:     #CBD5E1;
+            --muted:     #7A95B0;
+            --muted2:    #A0B4C8;
         }
 
         html { scroll-behavior: smooth; }
@@ -39,28 +48,31 @@
             overflow-x: hidden;
         }
 
-        .bg-glow {
+        /* Fondo suave con gradientes cálidos */
+        .bg-atmosphere {
             position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
         }
-        .bg-glow::before {
+        .bg-atmosphere::before {
             content: '';
-            position: absolute; width: 800px; height: 800px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(41,168,212,0.07) 0%, transparent 65%);
-            top: -200px; right: -200px;
+            position: absolute; width: 900px; height: 600px; border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(0,174,239,0.055) 0%, transparent 65%);
+            top: -150px; right: -250px;
         }
-        .bg-glow::after {
+        .bg-atmosphere::after {
             content: '';
-            position: absolute; width: 600px; height: 600px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(29,214,192,0.04) 0%, transparent 65%);
-            bottom: 0; left: -150px;
+            position: absolute; width: 700px; height: 500px; border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(0,201,177,0.04) 0%, transparent 65%);
+            bottom: -100px; left: -200px;
         }
+
+        /* Grid muy sutil */
         .bg-grid {
             position: fixed; inset: 0; pointer-events: none; z-index: 0;
             background-image:
-                linear-gradient(rgba(41,168,212,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(41,168,212,0.025) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+                linear-gradient(rgba(0,174,239,0.018) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,174,239,0.018) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 70% 55% at 50% 35%, black 20%, transparent 100%);
         }
 
         .container {
@@ -68,94 +80,121 @@
             position: relative; z-index: 1;
         }
 
-        /* HEADER */
-        header { padding: 22px 0; border-bottom: 1px solid var(--border); }
-        .header-inner { display: flex; align-items: center; justify-content: center; }
-        .logo img { height: 36px; width: auto; }
+        /* ══ HEADER ══════════════════════════════════════════ */
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+        }
 
-        /* HERO */
-        .hero { padding: 72px 0 48px; text-align: center; }
+        .header-inner {
+            display: flex; align-items: center; justify-content: center; gap: 14px;
+        }
 
-        /* Badge con contador dinámico */
+        /* Isotipo SVG inline */
+        .isotipo {
+            width: 46px; height: 46px;
+            color: var(--teal);
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            display: flex; flex-direction: column; line-height: 1;
+        }
+
+        .logo-alma {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.75rem; font-weight: 700;
+            color: var(--teal);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-by {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem; font-weight: 300;
+            color: var(--muted2);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-top: 1px;
+        }
+
+        /* ══ HERO ═════════════════════════════════════════════ */
+        .hero { padding: 68px 0 44px; text-align: center; }
+
         .badge {
             display: inline-flex; align-items: center; gap: 8px;
-            background: linear-gradient(135deg, rgba(41,168,212,0.15), rgba(29,214,192,0.08));
-            border: 1px solid rgba(41,168,212,0.4);
-            color: var(--cyan);
-            font-size: 0.73rem; font-weight: 500; letter-spacing: 0.12em;
+            background: linear-gradient(135deg, rgba(0,174,239,0.13), rgba(0,201,177,0.07));
+            border: 1px solid rgba(0,174,239,0.35);
+            color: var(--teal);
+            font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
             text-transform: uppercase; padding: 7px 18px; border-radius: 100px;
-            margin-bottom: 36px;
+            margin-bottom: 32px;
             opacity: 0; animation: slideDown 0.5s 0.1s ease forwards;
             transition: background 0.4s, border-color 0.4s, color 0.4s;
         }
         .badge.urgente {
-            background: linear-gradient(135deg, rgba(224,82,82,0.15), rgba(224,82,82,0.08));
-            border-color: rgba(224,82,82,0.5);
+            background: rgba(239,68,68,0.12);
+            border-color: rgba(239,68,68,0.4);
             color: var(--red);
         }
         .badge-dot {
             width: 7px; height: 7px; border-radius: 50%;
-            background: var(--cyan2); box-shadow: 0 0 6px var(--cyan2);
+            background: var(--teal-warm);
+            box-shadow: 0 0 7px var(--teal-warm);
             animation: breathe 2.5s infinite; flex-shrink: 0;
         }
         .badge.urgente .badge-dot {
-            background: var(--red); box-shadow: 0 0 6px var(--red);
+            background: var(--red); box-shadow: 0 0 7px var(--red);
         }
-        /* Skeleton loader del badge */
         .badge-skeleton {
-            display: inline-block; width: 220px; height: 32px;
+            display: inline-block; width: 230px; height: 34px;
             background: linear-gradient(90deg, var(--border) 25%, var(--border2) 50%, var(--border) 75%);
-            background-size: 200% 100%;
-            border-radius: 100px; margin-bottom: 36px;
+            background-size: 200% 100%; border-radius: 100px; margin-bottom: 32px;
             animation: shimmer 1.4s infinite;
-        }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        @keyframes breathe {
-            0%,100% { opacity:1; box-shadow: 0 0 6px var(--cyan2); }
-            50%      { opacity:0.4; box-shadow: 0 0 2px var(--cyan2); }
         }
 
         h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2.1rem, 6vw, 3.5rem);
-            font-weight: 800; line-height: 1.1; margin-bottom: 24px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5.8vw, 3.4rem);
+            font-weight: 800; line-height: 1.1; margin-bottom: 22px;
             opacity: 0; animation: slideUp 0.6s 0.2s ease forwards;
         }
         h1 .hl-q {
             display: block; color: var(--muted2);
-            font-size: 0.72em; font-weight: 700; margin-bottom: 8px;
+            font-size: 0.65em; font-weight: 400;
+            letter-spacing: 0.01em; margin-bottom: 10px;
+            font-family: 'DM Sans', sans-serif;
         }
-        h1 .hl-cyan { color: var(--cyan); }
+        h1 .hl-teal { color: var(--teal); }
 
         .subtitle {
-            font-size: 1.05rem; color: var(--muted2); line-height: 1.75;
+            font-size: 1.05rem; color: var(--muted2); line-height: 1.78;
             max-width: 520px; margin: 0 auto 40px;
-            opacity: 0; animation: slideUp 0.6s 0.32s ease forwards;
+            opacity: 0; animation: slideUp 0.6s 0.3s ease forwards;
         }
         .subtitle strong { color: var(--text); font-weight: 500; }
 
-        /* CTA */
-        .cta-wrap { opacity: 0; animation: slideUp 0.6s 0.42s ease forwards; }
+        /* ══ CTA ══════════════════════════════════════════════ */
+        .cta-wrap { opacity: 0; animation: slideUp 0.6s 0.4s ease forwards; }
 
         .btn-cta {
             display: inline-flex; align-items: center; gap: 12px;
-            background: linear-gradient(135deg, var(--cyan), #1a8db8);
+            background: linear-gradient(135deg, var(--teal), #0090cc);
             color: #fff;
-            font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800;
-            letter-spacing: 0.02em; padding: 20px 48px; border-radius: 100px;
+            font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700;
+            letter-spacing: 0.03em; padding: 19px 46px; border-radius: 100px;
             text-decoration: none;
-            box-shadow: 0 0 40px var(--cyan-glow), 0 8px 32px rgba(0,0,0,0.4);
+            box-shadow: 0 0 36px var(--teal-glow), 0 8px 28px rgba(0,0,0,0.35);
             transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden;
         }
         .btn-cta::before {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
             opacity: 0; transition: opacity 0.2s;
         }
-        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 0 60px var(--cyan-glow), 0 12px 40px rgba(0,0,0,0.5); }
+        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 0 56px var(--teal-glow), 0 12px 36px rgba(0,0,0,0.45); }
         .btn-cta:hover::before { opacity: 1; }
         .btn-cta.agotado {
-            background: linear-gradient(135deg, #3a3a4a, #2a2a3a);
+            background: linear-gradient(135deg, #2a3340, #1e2a38);
             box-shadow: none; cursor: not-allowed; pointer-events: none;
         }
 
@@ -165,167 +204,213 @@
         }
         .cta-sub span { padding: 2px 12px; border-right: 1px solid var(--border2); }
         .cta-sub span:last-child { border-right: none; }
-
-        /* Contador de turnos inline */
-        #turnos-inline {
-            font-weight: 500; color: var(--text);
-            transition: color 0.3s;
-        }
+        #turnos-inline { font-weight: 500; color: var(--text2); transition: color 0.3s; }
         #turnos-inline.urgente { color: var(--red); }
 
-        /* TRUST BAR */
+        /* ══ TRUST BAR ════════════════════════════════════════ */
         .trust-bar {
             display: flex; justify-content: center; align-items: center;
-            padding: 32px 0 60px; flex-wrap: wrap; row-gap: 10px;
-            opacity: 0; animation: fadeIn 0.7s 0.55s ease forwards;
+            padding: 28px 0 56px; flex-wrap: wrap; row-gap: 10px;
+            opacity: 0; animation: fadeIn 0.7s 0.52s ease forwards;
         }
         .trust-item {
-            display: flex; align-items: center; gap: 7px;
+            display: flex; align-items: center; gap: 8px;
             font-size: 0.82rem; color: var(--muted2);
-            padding: 0 20px; border-right: 1px solid var(--border);
+            padding: 0 18px; border-right: 1px solid var(--border);
         }
         .trust-item:last-child { border-right: none; }
         .trust-check {
-            width: 18px; height: 18px; border-radius: 50%;
-            background: rgba(29,214,192,0.15); color: var(--cyan2);
-            font-size: 0.65rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            width: 20px; height: 20px; border-radius: 50%;
+            background: rgba(0,201,177,0.14); color: var(--teal-warm);
+            font-size: 0.7rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
-        @media (max-width: 540px) {
-            .trust-item { border-right: none; padding: 4px 12px; }
-        }
+        @media (max-width: 540px) { .trust-item { border-right: none; padding: 4px 10px; } }
 
-        /* SECCIONES */
-        .anim-section { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        /* ══ SECCIONES ════════════════════════════════════════ */
+        .anim-section {
+            opacity: 0; transform: translateY(22px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
         .anim-section.visible { opacity: 1; transform: translateY(0); }
 
         .section-label {
-            font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700;
-            color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600;
+            color: var(--muted); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 10px;
         }
         .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(1.3rem, 3.5vw, 1.85rem); font-weight: 800; margin-bottom: 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.25rem, 3.4vw, 1.8rem); font-weight: 800; margin-bottom: 26px;
         }
-        .section-title span { color: var(--cyan); }
+        .section-title span { color: var(--teal); }
 
-        /* PAIN POINTS */
-        .problems { margin-bottom: 64px; }
-        .pain-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        /* ══ PAIN POINTS ══════════════════════════════════════ */
+        .problems { margin-bottom: 60px; }
+        .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
         @media (max-width: 560px) { .pain-grid { grid-template-columns: 1fr; } }
-        .pain-card {
-            background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-            padding: 22px 18px; transition: border-color 0.2s, background 0.2s;
-        }
-        .pain-card:hover { border-color: var(--border2); background: var(--card2); }
-        .pain-emoji { font-size: 1.7rem; margin-bottom: 10px; display: block; }
-        .pain-card strong {
-            display: block; font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700;
-            color: var(--text); margin-bottom: 5px;
-        }
-        .pain-card p { font-size: 0.84rem; color: var(--muted2); line-height: 1.55; }
 
-        /* FEATURES */
-        .features-section { margin-bottom: 64px; }
-        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .pain-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 22px 18px; transition: border-color 0.2s, background 0.2s, transform 0.2s;
+        }
+        .pain-card:hover { border-color: var(--border2); background: var(--card2); transform: translateY(-2px); }
+        .pain-emoji { font-size: 1.8rem; margin-bottom: 12px; display: block; }
+        .pain-card strong {
+            display: block; font-family: 'Montserrat', sans-serif; font-size: 0.87rem; font-weight: 700;
+            color: var(--text); margin-bottom: 6px;
+        }
+        .pain-card p { font-size: 0.84rem; color: var(--muted2); line-height: 1.58; }
+
+        /* ══ FEATURES ══════════════════════════════════════════ */
+        .features-section { margin-bottom: 60px; }
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
         @media (max-width: 500px) { .features-grid { grid-template-columns: 1fr; } }
+
         .feature-card {
-            background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
             padding: 24px 20px; transition: border-color 0.2s, transform 0.2s;
         }
-        .feature-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
-        .feature-icon { font-size: 1.6rem; margin-bottom: 12px; display: block; }
-        .feature-card h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
-        .feature-card p { font-size: 0.85rem; color: var(--muted2); line-height: 1.6; }
+        .feature-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+        .feature-icon { font-size: 1.65rem; margin-bottom: 12px; display: block; }
+        .feature-card h3 {
+            font-family: 'Montserrat', sans-serif; font-size: 0.93rem; font-weight: 700; margin-bottom: 7px;
+        }
+        .feature-card p { font-size: 0.84rem; color: var(--muted2); line-height: 1.62; }
 
-        /* PROCESO */
-        .proceso-section { margin-bottom: 64px; }
+        /* ══ PROCESO ══════════════════════════════════════════ */
+        .proceso-section { margin-bottom: 60px; }
         .proceso-box {
             background: var(--card); border: 1px solid var(--border);
-            border-radius: 18px; padding: 36px 30px; position: relative; overflow: hidden;
+            border-radius: 18px; padding: 34px 28px; position: relative; overflow: hidden;
         }
         .proceso-box::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, var(--cyan), var(--cyan2), transparent);
+            background: linear-gradient(90deg, var(--teal), var(--teal-warm), transparent);
         }
         .steps { display: flex; flex-direction: column; }
-        .step { display: flex; align-items: flex-start; gap: 18px; padding: 16px 0; position: relative; }
+        .step {
+            display: flex; align-items: flex-start; gap: 18px;
+            padding: 15px 0; position: relative;
+        }
         .step:not(:last-child)::after {
-            content: ''; position: absolute; left: 15px; top: 50px; bottom: 0; width: 1px;
-            background: linear-gradient(to bottom, var(--border2), var(--border));
+            content: ''; position: absolute; left: 15px; top: 48px; bottom: 0; width: 1px;
+            background: linear-gradient(to bottom, var(--border2), transparent);
         }
         .step-num {
             flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
-            background: var(--cyan-dim); border: 1px solid rgba(41,168,212,0.5);
-            color: var(--cyan); font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem;
-            display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;
+            background: var(--teal-dim); border: 1px solid rgba(0,174,239,0.45);
+            color: var(--teal); font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.82rem;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; z-index: 1;
         }
         .step-body { padding-top: 5px; }
-        .step-body h4 { font-size: 0.97rem; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-        .step-body p { font-size: 0.84rem; color: var(--muted); line-height: 1.55; }
+        .step-body h4 { font-size: 0.96rem; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+        .step-body p { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
 
-        /* CTA FINAL */
-        .cta-final { padding: 0 0 88px; }
+        /* ══ CTA FINAL ════════════════════════════════════════ */
+        .cta-final { padding: 0 0 84px; }
         .cta-final-box {
-            background: linear-gradient(135deg, rgba(41,168,212,0.08), rgba(29,214,192,0.04));
-            border: 1px solid rgba(41,168,212,0.2); border-radius: 22px;
-            padding: 52px 36px; text-align: center; position: relative; overflow: hidden;
+            background: linear-gradient(135deg, rgba(0,174,239,0.07), rgba(0,201,177,0.04));
+            border: 1px solid rgba(0,174,239,0.18); border-radius: 22px;
+            padding: 50px 32px; text-align: center; position: relative; overflow: hidden;
         }
         .cta-final-box::before {
-            content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(41,168,212,0.08) 0%, transparent 70%);
-            top: -100px; right: -80px; pointer-events: none;
+            content: ''; position: absolute; width: 350px; height: 350px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,174,239,0.07) 0%, transparent 70%);
+            top: -120px; right: -100px; pointer-events: none;
         }
+
+        /* Isotipo decorativo en el fondo del CTA */
+        .cta-final-box::after {
+            content: ''; position: absolute;
+            width: 200px; height: 200px;
+            bottom: -60px; left: -40px;
+            background: radial-gradient(circle, rgba(0,201,177,0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
         .cta-urgency {
             display: inline-block;
-            background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.3);
-            color: var(--accent); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
-            text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px;
+            background: var(--amber-dim); border: 1px solid rgba(245,158,11,0.3);
+            color: var(--amber); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em;
+            text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 18px;
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
         }
         .cta-urgency.rojo {
-            background: rgba(224,82,82,0.12); border-color: rgba(224,82,82,0.3); color: var(--red);
+            background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.35); color: var(--red);
         }
         .cta-final h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.45rem, 3.8vw, 2rem); font-weight: 800; margin-bottom: 10px;
         }
         .cta-final p {
             color: var(--muted2); font-size: 0.97rem;
-            max-width: 420px; margin: 0 auto 32px;
+            max-width: 400px; margin: 0 auto 30px; line-height: 1.65;
         }
 
-        /* FOOTER */
+        /* ══ FOOTER ═══════════════════════════════════════════ */
         footer {
             border-top: 1px solid var(--border); padding: 24px 0;
-            text-align: center; font-size: 0.79rem; color: var(--muted); line-height: 1.8;
+            text-align: center; font-size: 0.78rem; color: var(--muted); line-height: 1.85;
+        }
+        .footer-logo {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-bottom: 8px;
+        }
+        .footer-logo svg { width: 22px; height: 22px; color: var(--teal); opacity: 0.7; }
+        .footer-logo span {
+            font-family: 'Montserrat', sans-serif; font-weight: 600;
+            color: var(--muted2); font-size: 0.9rem;
         }
         footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-        footer a:hover { color: var(--cyan); }
+        footer a:hover { color: var(--teal); }
 
-        /* ANIMACIONES */
-        @keyframes slideDown { from { opacity:0; transform: translateY(-12px); } to { opacity:1; transform: translateY(0); } }
-        @keyframes slideUp   { from { opacity:0; transform: translateY(18px);  } to { opacity:1; transform: translateY(0); } }
-        @keyframes fadeIn    { from { opacity:0; }                               to { opacity:1; } }
+        /* ══ KEYFRAMES ════════════════════════════════════════ */
+        @keyframes breathe {
+            0%,100% { opacity:1; } 50% { opacity:0.35; }
+        }
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        @keyframes slideDown {
+            from { opacity:0; transform: translateY(-10px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { opacity:0; transform: translateY(16px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity:0; } to { opacity:1; }
+        }
     </style>
 </head>
 <body>
 
-<div class="bg-glow"></div>
+<div class="bg-atmosphere"></div>
 <div class="bg-grid"></div>
 
+<!-- ══ HEADER ═══════════════════════════════════════════════ -->
 <header>
     <div class="container">
         <div class="header-inner">
-            <div class="logo"><img src="Almaexon.png" alt="Almaexon"></div>
+            <img src="icono.ico" alt="Alma isotipo" style="width:46px;height:46px;object-fit:contain;">
+
+            <div class="logo-text">
+                <span class="logo-alma">Alma</span>
+                <span class="logo-by">by Almaexon</span>
+            </div>
         </div>
     </div>
 </header>
 
+<!-- ══ MAIN ══════════════════════════════════════════════════ -->
 <main>
     <div class="container">
 
         <!-- HERO -->
         <section class="hero">
-            <!-- El badge se reemplaza dinámicamente con JS -->
             <div id="badge-container">
                 <div class="badge-skeleton"></div>
             </div>
@@ -333,7 +418,7 @@
             <h1>
                 <span class="hl-q">¿Tu PC tiene problemas?</span>
                 Te decimos qué tiene<br>
-                <span class="hl-cyan">gratis, hoy, sin salir de casa.</span>
+                <span class="hl-teal">gratis, hoy, sin salir de casa.</span>
             </h1>
 
             <p class="subtitle">
@@ -348,7 +433,7 @@
                 </a>
                 <div class="cta-sub">
                     <span>100% gratuito</span>
-                    <span id="turnos-inline">Cargando turnos…</span>
+                    <span id="turnos-inline">Cargando…</span>
                     <span>Sin compromiso</span>
                 </div>
             </div>
@@ -408,7 +493,7 @@
                 <div class="feature-card">
                     <span class="feature-icon">🔒</span>
                     <h3>Sin presión ni sorpresas</h3>
-                    <p>El diagnóstico es gratis, siempre. Si querés repararlo, vos decidís cuándo y cómo — sin ninguna obligación.</p>
+                    <p>El diagnóstico es gratis, siempre. Si querés repararlo, vos decidís cuándo y cómo.</p>
                 </div>
             </div>
         </section>
@@ -416,7 +501,7 @@
         <!-- PROCESO -->
         <section class="proceso-section anim-section">
             <p class="section-label">El proceso</p>
-            <h2 class="section-title" style="margin-bottom: 24px;">Cuatro pasos, <span>sin complicaciones</span></h2>
+            <h2 class="section-title" style="margin-bottom: 22px;">Cuatro pasos, <span>sin complicaciones</span></h2>
             <div class="proceso-box">
                 <div class="steps">
                     <div class="step">
@@ -444,7 +529,7 @@
                         <div class="step-num">4</div>
                         <div class="step-body">
                             <h4>El veredicto</h4>
-                            <p>Te explicamos qué tiene y cuáles son tus opciones. Si querés seguir con la reparación, te damos presupuesto al toque — sin obligación.</p>
+                            <p>Te explicamos qué tiene y cuáles son tus opciones. Si querés seguir con la reparación, te damos presupuesto al toque — sin ninguna obligación.</p>
                         </div>
                     </div>
                 </div>
@@ -471,17 +556,23 @@
     </div>
 </main>
 
+<!-- ══ FOOTER ════════════════════════════════════════════════ -->
 <footer>
     <div class="container">
-        <strong style="color: var(--muted2);">Almaexon</strong> · Soporte IT Especializado · Buenos Aires, Argentina<br>
-        <a href="mailto:contacto@almaexon.com.ar">contacto@almaexon.com.ar</a>
+        <div class="footer-logo">
+            <img src="icono.ico" alt="" style="width:22px;height:22px;object-fit:contain;opacity:0.7;">
+            <span>Alma by Almaexon</span>
+        </div>
+        <div>
+            Soporte IT para particulares · Buenos Aires, Argentina<br>
+            <a href="mailto:contacto@almaexon.com.ar">contacto@almaexon.com.ar</a>
+        </div>
     </div>
 </footer>
 
 <script>
     // ─────────────────────────────────────────────────────────
-    //  REEMPLAZÁ ESTA URL con la que te da Google Apps Script
-    //  al momento de implementar el Web App
+    //  Reemplazá con la URL de tu Google Apps Script
     // ─────────────────────────────────────────────────────────
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwnqbfDs3Ln3D6WJnQQHIEKU72EdPulRVCAbH5QyYV7hR-h22r5wZWiLcgs1vbKteaZzw/exec";
 
@@ -490,97 +581,76 @@
             const res  = await fetch(APPS_SCRIPT_URL);
             const data = await res.json();
             actualizarUI(data.disponibles, data.total);
-        } catch (err) {
-            // Si falla el fetch, mostramos fallback genérico sin romper la página
+        } catch {
             actualizarUIFallback();
         }
     }
 
     function actualizarUI(disponibles, total) {
-        const esUrgente  = disponibles <= 3;
-        const estaLleno  = disponibles <= 0;
+        const esUrgente = disponibles <= 3;
+        const estaLleno = disponibles <= 0;
 
-        // ── Badge hero ──────────────────────────────────────
+        // Badge hero
         const badgeContainer = document.getElementById("badge-container");
         const badge = document.createElement("div");
         badge.className = "badge" + (esUrgente ? " urgente" : "");
-
         const dot = document.createElement("span");
         dot.className = "badge-dot";
-
         const txt = document.createTextNode(
-            estaLleno
-                ? "Sin turnos disponibles esta semana"
-                : esUrgente
-                    ? `⚠️ Solo ${disponibles} turno${disponibles === 1 ? "" : "s"} disponible${disponibles === 1 ? "" : "s"}`
-                    : `${disponibles} de ${total} turnos disponibles esta semana`
+            estaLleno  ? "Sin turnos disponibles esta semana" :
+            esUrgente  ? `⚠️ Solo ${disponibles} turno${disponibles === 1 ? "" : "s"} disponible${disponibles === 1 ? "" : "s"}` :
+                         `${disponibles} de ${total} turnos disponibles esta semana`
         );
-
         badge.appendChild(dot);
         badge.appendChild(txt);
         badgeContainer.innerHTML = "";
         badgeContainer.appendChild(badge);
 
-        // ── Texto inline bajo el botón ──────────────────────
-        const turnosInline = document.getElementById("turnos-inline");
+        // Inline bajo CTA
+        const ti = document.getElementById("turnos-inline");
         if (estaLleno) {
-            turnosInline.textContent = "Sin turnos disponibles";
-            turnosInline.classList.add("urgente");
+            ti.textContent = "Sin turnos disponibles"; ti.classList.add("urgente");
         } else if (esUrgente) {
-            turnosInline.textContent = `Solo ${disponibles} turno${disponibles === 1 ? "" : "s"} libre${disponibles === 1 ? "" : "s"}`;
-            turnosInline.classList.add("urgente");
+            ti.textContent = `Solo ${disponibles} turno${disponibles === 1 ? "" : "s"} libre${disponibles === 1 ? "" : "s"}`; ti.classList.add("urgente");
         } else {
-            turnosInline.textContent = `${disponibles} turnos disponibles esta semana`;
+            ti.textContent = `${disponibles} turnos disponibles esta semana`;
         }
 
-        // ── Badge urgencia CTA final ─────────────────────────
-        const urgencyBadge = document.getElementById("urgency-badge");
+        // Urgency badge CTA final
+        const ub = document.getElementById("urgency-badge");
         if (estaLleno) {
-            urgencyBadge.textContent = "🚫 Sin turnos disponibles esta semana";
-            urgencyBadge.classList.add("rojo");
+            ub.textContent = "🚫 Sin turnos disponibles esta semana"; ub.classList.add("rojo");
         } else if (esUrgente) {
-            urgencyBadge.textContent = `🔴 ¡Solo quedan ${disponibles} turno${disponibles === 1 ? "" : "s"}!`;
-            urgencyBadge.classList.add("rojo");
+            ub.textContent = `🔴 ¡Solo quedan ${disponibles} turno${disponibles === 1 ? "" : "s"}!`; ub.classList.add("rojo");
         } else {
-            urgencyBadge.textContent = `⏳ Quedan ${disponibles} turnos esta semana`;
+            ub.textContent = `⏳ Quedan ${disponibles} turnos esta semana`;
         }
 
-        // ── Deshabilitar botones si está lleno ───────────────
+        // Deshabilitar si lleno
         if (estaLleno) {
-            const btnHero  = document.getElementById("btn-hero");
-            const btnFinal = document.getElementById("btn-final");
-            btnHero.classList.add("agotado");
-            btnHero.textContent = "Sin turnos disponibles esta semana";
-            btnFinal.classList.add("agotado");
-            btnFinal.textContent = "Sin turnos disponibles esta semana";
+            ["btn-hero","btn-final"].forEach(id => {
+                const b = document.getElementById(id);
+                b.classList.add("agotado");
+                b.innerHTML = "Sin turnos disponibles esta semana";
+            });
         }
     }
 
     function actualizarUIFallback() {
-        // Si no se puede contactar el script, mostramos algo genérico
-        const badgeContainer = document.getElementById("badge-container");
-        badgeContainer.innerHTML = `
-            <div class="badge">
-                <span class="badge-dot"></span>
-                Turnos disponibles esta semana
-            </div>`;
+        document.getElementById("badge-container").innerHTML =
+            `<div class="badge"><span class="badge-dot"></span>Turnos disponibles esta semana</div>`;
         document.getElementById("turnos-inline").textContent = "Solo 10 turnos por semana";
         document.getElementById("urgency-badge").textContent = "⏳ Quedan pocos turnos esta semana";
     }
 
-    // ── Scroll animations ────────────────────────────────────
+    // Scroll animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add("visible");
-                observer.unobserve(e.target);
-            }
+            if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); }
         });
-    }, { threshold: 0.12 });
-
+    }, { threshold: 0.1 });
     document.querySelectorAll(".anim-section").forEach(el => observer.observe(el));
 
-    // ── Iniciar ──────────────────────────────────────────────
     cargarTurnos();
 </script>
 
