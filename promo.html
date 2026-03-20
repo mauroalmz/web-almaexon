@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Tu PC tiene problemas? Diagnóstico gratis · Almaexon</title>
-    <meta name="description" content="PC lenta, que cuelga o no arranca. Hacemos un diagnóstico remoto 100% gratis en 15 minutos. Sin moverte de casa. Sin compromiso.">
+    <title>¿Tu PC tiene problemas? · Diagnóstico Gratis · Almaexon</title>
+    <meta name="description" content="Diagnóstico remoto 100% gratis para tu PC. Sin moverte de casa. En 15 minutos sabemos qué tiene tu equipo y qué hacer.">
     <link rel="icon" type="image/x-icon" href="icono.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,18 +14,19 @@
 
         :root {
             --bg:        #060D18;
-            --bg2:       #0B1829;
-            --card:      #0F1F33;
-            --border:    #1A3050;
-            --border-hi: #2A4A6A;
-            --cyan:      #28A8D4;
-            --cyan-dim:  rgba(40,168,212,0.10);
-            --cyan-glow: rgba(40,168,212,0.40);
-            --cyan-soft: rgba(40,168,212,0.20);
-            --accent:    #F0A500;
-            --accent-dim:rgba(240,165,0,0.10);
-            --text:      #DCE9F5;
-            --muted:     #6A8BA8;
+            --card:      #0F1E30;
+            --card2:     #0D1A28;
+            --border:    #1A2D46;
+            --border2:   #243D5A;
+            --cyan:      #29A8D4;
+            --cyan-dim:  rgba(41, 168, 212, 0.1);
+            --cyan-glow: rgba(41, 168, 212, 0.4);
+            --cyan2:     #1DD6C0;
+            --accent:    #F5A623;
+            --red:       #E05252;
+            --text:      #ECF2FA;
+            --muted:     #6E8DA8;
+            --muted2:    #9DB5CB;
         }
 
         html { scroll-behavior: smooth; }
@@ -38,469 +39,284 @@
             overflow-x: hidden;
         }
 
-        /* === FONDO === */
-        .bg-layer {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
+        .bg-glow {
+            position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
         }
-
-        .bg-layer::before {
+        .bg-glow::before {
             content: '';
-            position: absolute;
-            width: 900px; height: 900px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(40,168,212,0.08) 0%, transparent 65%);
-            top: -300px; right: -200px;
+            position: absolute; width: 800px; height: 800px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(41,168,212,0.07) 0%, transparent 65%);
+            top: -200px; right: -200px;
         }
-
-        .bg-layer::after {
+        .bg-glow::after {
             content: '';
-            position: absolute;
-            width: 600px; height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(240,165,0,0.04) 0%, transparent 65%);
-            bottom: -100px; left: -100px;
+            position: absolute; width: 600px; height: 600px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(29,214,192,0.04) 0%, transparent 65%);
+            bottom: 0; left: -150px;
         }
-
         .bg-grid {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
+            position: fixed; inset: 0; pointer-events: none; z-index: 0;
             background-image:
-                linear-gradient(rgba(40,168,212,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(40,168,212,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(41,168,212,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(41,168,212,0.025) 1px, transparent 1px);
             background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 0%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
         }
 
         .container {
-            max-width: 760px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 1;
+            max-width: 720px; margin: 0 auto; padding: 0 24px;
+            position: relative; z-index: 1;
         }
 
-        /* === HEADER === */
-        header {
-            padding: 22px 0 18px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        header .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
+        /* HEADER */
+        header { padding: 22px 0; border-bottom: 1px solid var(--border); }
+        .header-inner { display: flex; align-items: center; justify-content: center; }
         .logo img { height: 36px; width: auto; }
 
-        .header-tag {
-            font-size: 0.75rem;
-            color: var(--muted);
-            border: 1px solid var(--border);
-            padding: 4px 12px;
-            border-radius: 100px;
-        }
+        /* HERO */
+        .hero { padding: 72px 0 48px; text-align: center; }
 
-        /* === HERO === */
-        .hero {
-            padding: 80px 0 52px;
-            text-align: center;
-            animation: fadeUp 0.7s ease both;
-        }
-
+        /* Badge con contador dinámico */
         .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--accent-dim);
-            border: 1px solid rgba(240,165,0,0.35);
-            color: var(--accent);
-            font-size: 0.73rem;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            padding: 7px 18px;
-            border-radius: 100px;
-            margin-bottom: 34px;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, rgba(41,168,212,0.15), rgba(29,214,192,0.08));
+            border: 1px solid rgba(41,168,212,0.4);
+            color: var(--cyan);
+            font-size: 0.73rem; font-weight: 500; letter-spacing: 0.12em;
+            text-transform: uppercase; padding: 7px 18px; border-radius: 100px;
+            margin-bottom: 36px;
+            opacity: 0; animation: slideDown 0.5s 0.1s ease forwards;
+            transition: background 0.4s, border-color 0.4s, color 0.4s;
         }
-
+        .badge.urgente {
+            background: linear-gradient(135deg, rgba(224,82,82,0.15), rgba(224,82,82,0.08));
+            border-color: rgba(224,82,82,0.5);
+            color: var(--red);
+        }
         .badge-dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--accent);
-            animation: blink 1.8s ease-in-out infinite;
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--cyan2); box-shadow: 0 0 6px var(--cyan2);
+            animation: breathe 2.5s infinite; flex-shrink: 0;
         }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.25; }
+        .badge.urgente .badge-dot {
+            background: var(--red); box-shadow: 0 0 6px var(--red);
+        }
+        /* Skeleton loader del badge */
+        .badge-skeleton {
+            display: inline-block; width: 220px; height: 32px;
+            background: linear-gradient(90deg, var(--border) 25%, var(--border2) 50%, var(--border) 75%);
+            background-size: 200% 100%;
+            border-radius: 100px; margin-bottom: 36px;
+            animation: shimmer 1.4s infinite;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        @keyframes breathe {
+            0%,100% { opacity:1; box-shadow: 0 0 6px var(--cyan2); }
+            50%      { opacity:0.4; box-shadow: 0 0 2px var(--cyan2); }
         }
 
         h1 {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(2.1rem, 6vw, 3.6rem);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-bottom: 24px;
+            font-size: clamp(2.1rem, 6vw, 3.5rem);
+            font-weight: 800; line-height: 1.1; margin-bottom: 24px;
+            opacity: 0; animation: slideUp 0.6s 0.2s ease forwards;
         }
-
-        h1 .block { display: block; }
-        h1 .highlight { color: var(--cyan); }
-        h1 .dim { color: var(--muted); font-size: 0.78em; }
+        h1 .hl-q {
+            display: block; color: var(--muted2);
+            font-size: 0.72em; font-weight: 700; margin-bottom: 8px;
+        }
+        h1 .hl-cyan { color: var(--cyan); }
 
         .subtitle {
-            font-size: 1.05rem;
-            color: var(--muted);
-            line-height: 1.75;
-            max-width: 520px;
-            margin: 0 auto 48px;
+            font-size: 1.05rem; color: var(--muted2); line-height: 1.75;
+            max-width: 520px; margin: 0 auto 40px;
+            opacity: 0; animation: slideUp 0.6s 0.32s ease forwards;
         }
+        .subtitle strong { color: var(--text); font-weight: 500; }
 
-        .subtitle strong { color: var(--text); }
+        /* CTA */
+        .cta-wrap { opacity: 0; animation: slideUp 0.6s 0.42s ease forwards; }
 
-        /* === BOTÓN === */
         .btn-cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: var(--cyan);
+            display: inline-flex; align-items: center; gap: 12px;
+            background: linear-gradient(135deg, var(--cyan), #1a8db8);
             color: #fff;
-            font-family: 'Syne', sans-serif;
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: 0.03em;
-            padding: 20px 48px;
-            border-radius: 100px;
+            font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800;
+            letter-spacing: 0.02em; padding: 20px 48px; border-radius: 100px;
             text-decoration: none;
-            text-transform: uppercase;
-            box-shadow:
-                0 0 0 1px rgba(40,168,212,0.3),
-                0 0 40px var(--cyan-glow),
-                0 8px 32px rgba(0,0,0,0.4);
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            box-shadow: 0 0 40px var(--cyan-glow), 0 8px 32px rgba(0,0,0,0.4);
+            transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden;
+        }
+        .btn-cta::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+            opacity: 0; transition: opacity 0.2s;
+        }
+        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 0 60px var(--cyan-glow), 0 12px 40px rgba(0,0,0,0.5); }
+        .btn-cta:hover::before { opacity: 1; }
+        .btn-cta.agotado {
+            background: linear-gradient(135deg, #3a3a4a, #2a2a3a);
+            box-shadow: none; cursor: not-allowed; pointer-events: none;
         }
 
-        .btn-cta:hover {
-            background: #1e91bb;
-            transform: translateY(-3px);
-            box-shadow:
-                0 0 0 1px rgba(40,168,212,0.5),
-                0 0 60px var(--cyan-glow),
-                0 12px 40px rgba(0,0,0,0.5);
+        .cta-sub {
+            margin-top: 14px; font-size: 0.79rem; color: var(--muted);
+            display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
         }
+        .cta-sub span { padding: 2px 12px; border-right: 1px solid var(--border2); }
+        .cta-sub span:last-child { border-right: none; }
 
-        .cta-note {
-            margin-top: 18px;
-            font-size: 0.8rem;
-            color: var(--muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
-            flex-wrap: wrap;
+        /* Contador de turnos inline */
+        #turnos-inline {
+            font-weight: 500; color: var(--text);
+            transition: color 0.3s;
         }
+        #turnos-inline.urgente { color: var(--red); }
 
-        .cta-note span { padding: 0 8px; }
-        .cta-note span + span { border-left: 1px solid var(--border); }
-
-        /* === SPOTS COUNTER === */
-        .spots-counter {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(240,165,0,0.07);
-            border: 1px solid rgba(240,165,0,0.2);
-            border-radius: 100px;
-            padding: 8px 18px;
-            font-size: 0.8rem;
-            color: var(--accent);
-            margin-top: 28px;
-        }
-
-        .spots-bar { display: flex; gap: 3px; }
-
-        .spots-bar span {
-            width: 8px; height: 8px;
-            border-radius: 2px;
-            background: var(--accent);
-        }
-
-        .spots-bar span.empty { background: rgba(240,165,0,0.2); }
-
-        /* === TRUST BAR === */
+        /* TRUST BAR */
         .trust-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            padding: 0 0 72px;
-            flex-wrap: wrap;
-            animation: fadeUp 0.7s 0.1s ease both;
+            display: flex; justify-content: center; align-items: center;
+            padding: 32px 0 60px; flex-wrap: wrap; row-gap: 10px;
+            opacity: 0; animation: fadeIn 0.7s 0.55s ease forwards;
+        }
+        .trust-item {
+            display: flex; align-items: center; gap: 7px;
+            font-size: 0.82rem; color: var(--muted2);
+            padding: 0 20px; border-right: 1px solid var(--border);
+        }
+        .trust-item:last-child { border-right: none; }
+        .trust-check {
+            width: 18px; height: 18px; border-radius: 50%;
+            background: rgba(29,214,192,0.15); color: var(--cyan2);
+            font-size: 0.65rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        @media (max-width: 540px) {
+            .trust-item { border-right: none; padding: 4px 12px; }
         }
 
-        .trust-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            padding: 6px 14px;
-            font-size: 0.78rem;
-            color: var(--muted);
-        }
+        /* SECCIONES */
+        .anim-section { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .anim-section.visible { opacity: 1; transform: translateY(0); }
 
-        .trust-pill .ok { color: var(--cyan); }
-
-        /* === SECTION LABEL === */
         .section-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 20px;
-            display: block;
+            font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700;
+            color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px;
         }
-
-        /* === PROBLEMAS === */
-        .problemas {
-            margin-bottom: 72px;
-            animation: fadeUp 0.7s 0.15s ease both;
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.3rem, 3.5vw, 1.85rem); font-weight: 800; margin-bottom: 28px;
         }
+        .section-title span { color: var(--cyan); }
 
-        .problema-list { display: flex; flex-direction: column; gap: 10px; }
-
-        .problema-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 14px 18px;
-            font-size: 0.93rem;
-            transition: border-color 0.2s;
+        /* PAIN POINTS */
+        .problems { margin-bottom: 64px; }
+        .pain-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        @media (max-width: 560px) { .pain-grid { grid-template-columns: 1fr; } }
+        .pain-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 22px 18px; transition: border-color 0.2s, background 0.2s;
         }
-
-        .problema-item:hover { border-color: var(--border-hi); }
-
-        .problema-ico {
-            font-size: 1.2rem;
-            flex-shrink: 0;
-            width: 38px; height: 38px;
-            background: var(--bg2);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .pain-card:hover { border-color: var(--border2); background: var(--card2); }
+        .pain-emoji { font-size: 1.7rem; margin-bottom: 10px; display: block; }
+        .pain-card strong {
+            display: block; font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700;
+            color: var(--text); margin-bottom: 5px;
         }
+        .pain-card p { font-size: 0.84rem; color: var(--muted2); line-height: 1.55; }
 
-        /* === FEATURES === */
-        .features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 72px;
-            animation: fadeUp 0.7s 0.22s ease both;
-        }
-
-        @media (max-width: 500px) { .features { grid-template-columns: 1fr; } }
-
+        /* FEATURES */
+        .features-section { margin-bottom: 64px; }
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 500px) { .features-grid { grid-template-columns: 1fr; } }
         .feature-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px 20px;
-            transition: border-color 0.2s, transform 0.2s;
+            background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 24px 20px; transition: border-color 0.2s, transform 0.2s;
         }
-
         .feature-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+        .feature-icon { font-size: 1.6rem; margin-bottom: 12px; display: block; }
+        .feature-card h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+        .feature-card p { font-size: 0.85rem; color: var(--muted2); line-height: 1.6; }
 
-        .feature-top {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
+        /* PROCESO */
+        .proceso-section { margin-bottom: 64px; }
+        .proceso-box {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 18px; padding: 36px 30px; position: relative; overflow: hidden;
         }
-
-        .feature-icon {
-            font-size: 1.3rem;
-            width: 38px; height: 38px;
-            background: var(--cyan-dim);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+        .proceso-box::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--cyan2), transparent);
         }
-
-        .feature-card h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text);
-            line-height: 1.3;
-        }
-
-        .feature-card p {
-            font-size: 0.84rem;
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        /* === PROCESO === */
-        .proceso {
-            margin-bottom: 72px;
-            animation: fadeUp 0.7s 0.28s ease both;
-        }
-
-        .proceso-inner {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 36px 32px;
-        }
-
-        @media (max-width: 500px) { .proceso-inner { padding: 24px 20px; } }
-
         .steps { display: flex; flex-direction: column; }
-
-        .step {
-            display: flex;
-            gap: 18px;
-            padding: 16px 0;
-            position: relative;
-        }
-
+        .step { display: flex; align-items: flex-start; gap: 18px; padding: 16px 0; position: relative; }
         .step:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 48px; bottom: 0;
-            width: 1px;
-            background: linear-gradient(var(--border), transparent);
+            content: ''; position: absolute; left: 15px; top: 50px; bottom: 0; width: 1px;
+            background: linear-gradient(to bottom, var(--border2), var(--border));
         }
-
         .step-num {
-            flex-shrink: 0;
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            background: var(--cyan-dim);
-            border: 1px solid rgba(40,168,212,0.5);
-            color: var(--cyan);
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 0.82rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
+            flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+            background: var(--cyan-dim); border: 1px solid rgba(41,168,212,0.5);
+            color: var(--cyan); font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem;
+            display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;
         }
+        .step-body { padding-top: 5px; }
+        .step-body h4 { font-size: 0.97rem; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+        .step-body p { font-size: 0.84rem; color: var(--muted); line-height: 1.55; }
 
-        .step-text { padding-top: 5px; }
-
-        .step-text h4 {
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-bottom: 3px;
-            color: var(--text);
+        /* CTA FINAL */
+        .cta-final { padding: 0 0 88px; }
+        .cta-final-box {
+            background: linear-gradient(135deg, rgba(41,168,212,0.08), rgba(29,214,192,0.04));
+            border: 1px solid rgba(41,168,212,0.2); border-radius: 22px;
+            padding: 52px 36px; text-align: center; position: relative; overflow: hidden;
         }
-
-        .step-text p {
-            font-size: 0.83rem;
-            color: var(--muted);
-            line-height: 1.55;
+        .cta-final-box::before {
+            content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(41,168,212,0.08) 0%, transparent 70%);
+            top: -100px; right: -80px; pointer-events: none;
         }
-
-        /* === GARANTÍA === */
-        .garantia {
-            background: linear-gradient(135deg, rgba(40,168,212,0.06) 0%, rgba(40,168,212,0.02) 100%);
-            border: 1px solid rgba(40,168,212,0.2);
-            border-radius: 16px;
-            padding: 24px 28px;
-            margin-bottom: 72px;
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-            animation: fadeUp 0.7s 0.33s ease both;
+        .cta-urgency {
+            display: inline-block;
+            background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.3);
+            color: var(--accent); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+            text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px;
         }
-
-        .garantia-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 2px; }
-
-        .garantia h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--cyan);
+        .cta-urgency.rojo {
+            background: rgba(224,82,82,0.12); border-color: rgba(224,82,82,0.3); color: var(--red);
         }
-
-        .garantia p {
-            font-size: 0.87rem;
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        /* === CTA FINAL === */
-        .cta-final {
-            text-align: center;
-            padding: 0 0 96px;
-            animation: fadeUp 0.7s 0.38s ease both;
-        }
-
         .cta-final h2 {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(1.6rem, 4vw, 2.2rem);
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 12px;
+            font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; margin-bottom: 10px;
         }
-
         .cta-final p {
-            color: var(--muted);
-            margin-bottom: 36px;
-            font-size: 0.97rem;
+            color: var(--muted2); font-size: 0.97rem;
+            max-width: 420px; margin: 0 auto 32px;
         }
 
-        /* === FOOTER === */
+        /* FOOTER */
         footer {
-            border-top: 1px solid var(--border);
-            padding: 24px 0;
-            text-align: center;
-            font-size: 0.78rem;
-            color: var(--muted);
-            line-height: 1.8;
+            border-top: 1px solid var(--border); padding: 24px 0;
+            text-align: center; font-size: 0.79rem; color: var(--muted); line-height: 1.8;
         }
-
         footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
         footer a:hover { color: var(--cyan); }
 
-        /* === ANIMACIÓN === */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        /* ANIMACIONES */
+        @keyframes slideDown { from { opacity:0; transform: translateY(-12px); } to { opacity:1; transform: translateY(0); } }
+        @keyframes slideUp   { from { opacity:0; transform: translateY(18px);  } to { opacity:1; transform: translateY(0); } }
+        @keyframes fadeIn    { from { opacity:0; }                               to { opacity:1; } }
     </style>
 </head>
 <body>
 
-<div class="bg-layer"></div>
+<div class="bg-glow"></div>
 <div class="bg-grid"></div>
 
 <header>
     <div class="container">
-        <div class="logo"><img src="Almaexon.png" alt="Almaexon"></div>
-        <div class="header-tag">Soporte IT · Argentina</div>
+        <div class="header-inner">
+            <div class="logo"><img src="Almaexon.png" alt="Almaexon"></div>
+        </div>
     </div>
 </header>
 
@@ -509,161 +325,147 @@
 
         <!-- HERO -->
         <section class="hero">
-            <div class="badge">
-                <span class="badge-dot"></span>
-                Turnos disponibles esta semana
+            <!-- El badge se reemplaza dinámicamente con JS -->
+            <div id="badge-container">
+                <div class="badge-skeleton"></div>
             </div>
 
             <h1>
-                <span class="block dim">¿Tu computadora</span>
-                <span class="block highlight">tiene problemas?</span>
+                <span class="hl-q">¿Tu PC tiene problemas?</span>
+                Te decimos qué tiene<br>
+                <span class="hl-cyan">gratis, hoy, sin salir de casa.</span>
             </h1>
 
             <p class="subtitle">
-                PC lenta, que se cuelga, que no arranca, con virus o que se apaga sola.<br>
-                <strong>En 15 minutos te decimos exactamente qué tiene</strong> — sin que te muevas de tu casa y sin gastar un peso.
+                Un técnico real se conecta a tu equipo y te dice exactamente qué tiene —
+                <strong>sin rodeos, sin tecnicismos, sin cobrarte nada.</strong>
+                Si querés repararlo, vos decidís.
             </p>
 
-            <a href="https://forms.gle/ofe6qMtUQuzKQ5aTA" class="btn-cta" target="_blank" rel="noopener">
-                🔍 Quiero el diagnóstico gratis
-            </a>
-
-            <p class="cta-note">
-                <span>100% gratuito</span>
-                <span>Sin compromiso</span>
-                <span>Solo 10 turnos por semana</span>
-            </p>
-
-            <div class="spots-counter">
-                <div class="spots-bar">
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span class="empty"></span><span class="empty"></span><span class="empty"></span><span class="empty"></span><span class="empty"></span>
+            <div class="cta-wrap">
+                <a id="btn-hero" href="https://forms.gle/ofe6qMtUQuzKQ5aTA" class="btn-cta" target="_blank" rel="noopener">
+                    <span>📋</span> Reservar mi diagnóstico gratis
+                </a>
+                <div class="cta-sub">
+                    <span>100% gratuito</span>
+                    <span id="turnos-inline">Cargando turnos…</span>
+                    <span>Sin compromiso</span>
                 </div>
-                5 de 10 turnos ocupados esta semana
             </div>
         </section>
 
         <!-- TRUST BAR -->
         <div class="trust-bar">
-            <div class="trust-pill"><span class="ok">✓</span> PC, notebook o Mac</div>
-            <div class="trust-pill"><span class="ok">✓</span> Windows o Linux</div>
-            <div class="trust-pill"><span class="ok">✓</span> Vos ves todo en pantalla</div>
-            <div class="trust-pill"><span class="ok">✓</span> Sin instalar nada raro</div>
-            <div class="trust-pill"><span class="ok">✓</span> Respuesta en el día</div>
+            <div class="trust-item"><div class="trust-check">✓</div> PC, notebook o Mac</div>
+            <div class="trust-item"><div class="trust-check">✓</div> Ves todo en pantalla</div>
+            <div class="trust-item"><div class="trust-check">✓</div> Sin instalar nada raro</div>
+            <div class="trust-item"><div class="trust-check">✓</div> Respuesta en el día</div>
         </div>
 
-        <!-- PROBLEMAS -->
-        <section class="problemas">
-            <span class="section-label">¿Te pasa alguna de estas?</span>
-            <div class="problema-list">
-                <div class="problema-item">
-                    <div class="problema-ico">🐢</div>
-                    La PC tarda una eternidad en prender o abrir programas
+        <!-- PAIN POINTS -->
+        <section class="problems anim-section">
+            <p class="section-label">¿Te suena familiar?</p>
+            <h2 class="section-title">Situaciones que <span>todos</span> vivimos</h2>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <span class="pain-emoji">🐌</span>
+                    <strong>La PC va a paso de tortuga</strong>
+                    <p>Tardás 10 minutos en abrir el navegador y el ventilador suena como un avión.</p>
                 </div>
-                <div class="problema-item">
-                    <div class="problema-ico">💀</div>
-                    Se congela, se reinicia sola o aparece la pantalla azul
+                <div class="pain-card">
+                    <span class="pain-emoji">💀</span>
+                    <strong>Se apaga sola o no arranca</strong>
+                    <p>Pantalla azul, reinicio eterno o directamente no prende. No sabés si es grave.</p>
                 </div>
-                <div class="problema-item">
-                    <div class="problema-ico">🦠</div>
-                    Creés que tiene virus o algo raro instalado
-                </div>
-                <div class="problema-item">
-                    <div class="problema-ico">🔇</div>
-                    No hay sonido, no detecta el WiFi o el USB no funciona
-                </div>
-                <div class="problema-item">
-                    <div class="problema-ico">🚫</div>
-                    No arranca, no llega a cargar Windows o se queda en negro
+                <div class="pain-card">
+                    <span class="pain-emoji">🦠</span>
+                    <strong>Algo raro está pasando</strong>
+                    <p>Pop-ups, programas que no instalaste, o la PC hace cosas sola. Puede ser un virus.</p>
                 </div>
             </div>
         </section>
 
         <!-- FEATURES -->
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-top">
-                    <div class="feature-icon">🏠</div>
+        <section class="features-section anim-section">
+            <p class="section-label">Por qué elegirnos</p>
+            <h2 class="section-title">Un diagnóstico <span>de verdad</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🏠</span>
                     <h3>Sin moverte de tu casa</h3>
+                    <p>Nos conectamos de forma remota y segura. Ves exactamente lo que hacemos en pantalla, en tiempo real.</p>
                 </div>
-                <p>Nos conectamos de forma remota y segura. Ves todo lo que hacemos en tu pantalla, en tiempo real.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-top">
-                    <div class="feature-icon">⚡</div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
                     <h3>En 15 minutos lo sabemos</h3>
+                    <p>Usamos herramientas profesionales. Nada de "puede ser esto o aquello" — te damos una respuesta concreta.</p>
                 </div>
-                <p>Usamos herramientas profesionales. Nada de "puede ser esto o aquello, probemos a ver".</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-top">
-                    <div class="feature-icon">📋</div>
-                    <h3>Informe claro y sin tecnicismos</h3>
+                <div class="feature-card">
+                    <span class="feature-icon">📋</span>
+                    <h3>Explicación sin tecnicismos</h3>
+                    <p>Te contamos qué encontramos y cuáles son tus opciones reales para solucionarlo, en palabras simples.</p>
                 </div>
-                <p>Te explicamos exactamente qué tiene y cuáles son tus opciones reales para solucionarlo.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-top">
-                    <div class="feature-icon">🔒</div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
                     <h3>Sin presión ni sorpresas</h3>
+                    <p>El diagnóstico es gratis, siempre. Si querés repararlo, vos decidís cuándo y cómo — sin ninguna obligación.</p>
                 </div>
-                <p>El diagnóstico es gratis, siempre. Si después querés continuar con la reparación, vos decidís.</p>
             </div>
         </section>
 
         <!-- PROCESO -->
-        <section class="proceso">
-            <span class="section-label">¿Cómo funciona?</span>
-            <div class="proceso-inner">
+        <section class="proceso-section anim-section">
+            <p class="section-label">El proceso</p>
+            <h2 class="section-title" style="margin-bottom: 24px;">Cuatro pasos, <span>sin complicaciones</span></h2>
+            <div class="proceso-box">
                 <div class="steps">
                     <div class="step">
                         <div class="step-num">1</div>
-                        <div class="step-text">
+                        <div class="step-body">
                             <h4>Completás el formulario</h4>
-                            <p>Nos contás brevemente qué problema tiene la PC y elegís el horario que mejor te queda.</p>
+                            <p>Nos contás brevemente qué le pasa al equipo y elegís el horario que mejor te queda.</p>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-num">2</div>
-                        <div class="step-text">
-                            <h4>Te confirmamos el turno por WhatsApp</h4>
-                            <p>Te respondemos para confirmar y mandarte el enlace de conexión remota. Todo en pocas horas.</p>
+                        <div class="step-body">
+                            <h4>Te confirmamos el turno</h4>
+                            <p>Te contactamos por WhatsApp para confirmar y mandarte el acceso remoto seguro.</p>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-num">3</div>
-                        <div class="step-text">
+                        <div class="step-body">
                             <h4>Diagnóstico en vivo</h4>
-                            <p>Nos conectamos con tu permiso y analizamos todo. En 15 minutos sabemos qué tiene tu equipo.</p>
+                            <p>Nos conectamos a tu equipo con tu permiso y analizamos todo. Ves cada movimiento en pantalla.</p>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-num">4</div>
-                        <div class="step-text">
-                            <h4>Te damos el veredicto</h4>
-                            <p>Explicación clara de qué encontramos. Si querés continuar, te damos el presupuesto al toque — sin atarte a nada.</p>
+                        <div class="step-body">
+                            <h4>El veredicto</h4>
+                            <p>Te explicamos qué tiene y cuáles son tus opciones. Si querés seguir con la reparación, te damos presupuesto al toque — sin obligación.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- GARANTÍA -->
-        <div class="garantia">
-            <div class="garantia-icon">🛡️</div>
-            <div>
-                <h3>El diagnóstico es gratis. Sin letra chica.</h3>
-                <p>No te vamos a cobrar nada por revisar tu equipo. Si al final decidís no seguir con la reparación, no hay ningún problema. Te quedás con la información de qué tiene tu PC y listo.</p>
-            </div>
-        </div>
-
         <!-- CTA FINAL -->
-        <section class="cta-final">
-            <h2>Los turnos se llenan rápido.<br>Reservá el tuyo ahora.</h2>
-            <p>Es gratis, lleva 2 minutos completar el formulario y no te compromete a nada.</p>
-            <a href="https://forms.gle/ofe6qMtUQuzKQ5aTA" class="btn-cta" target="_blank" rel="noopener">
-                🔍 Quiero el diagnóstico gratis
-            </a>
+        <section class="cta-final anim-section">
+            <div class="cta-final-box">
+                <div id="urgency-badge" class="cta-urgency">⏳ Cargando disponibilidad…</div>
+                <h2>No dejes la PC para después.</h2>
+                <p>Lo que hoy es lentitud puede ser un disco roto mañana. Reservá tu turno gratis y salí de la duda hoy.</p>
+                <a id="btn-final" href="https://forms.gle/ofe6qMtUQuzKQ5aTA" class="btn-cta" target="_blank" rel="noopener">
+                    <span>📋</span> Reservar mi diagnóstico gratis
+                </a>
+                <div class="cta-sub" style="margin-top: 16px;">
+                    <span>100% gratuito</span>
+                    <span>Sin compromiso</span>
+                    <span>Respondemos hoy</span>
+                </div>
+            </div>
         </section>
 
     </div>
@@ -671,10 +473,116 @@
 
 <footer>
     <div class="container">
-        <strong style="color: var(--text);">Almaexon</strong> · Soporte IT · Buenos Aires, Argentina<br>
+        <strong style="color: var(--muted2);">Almaexon</strong> · Soporte IT Especializado · Buenos Aires, Argentina<br>
         <a href="mailto:contacto@almaexon.com.ar">contacto@almaexon.com.ar</a>
     </div>
 </footer>
+
+<script>
+    // ─────────────────────────────────────────────────────────
+    //  REEMPLAZÁ ESTA URL con la que te da Google Apps Script
+    //  al momento de implementar el Web App
+    // ─────────────────────────────────────────────────────────
+    const APPS_SCRIPT_URL = "REEMPLAZAR_URL_APPS_SCRIPT";
+
+    async function cargarTurnos() {
+        try {
+            const res  = await fetch(APPS_SCRIPT_URL);
+            const data = await res.json();
+            actualizarUI(data.disponibles, data.total);
+        } catch (err) {
+            // Si falla el fetch, mostramos fallback genérico sin romper la página
+            actualizarUIFallback();
+        }
+    }
+
+    function actualizarUI(disponibles, total) {
+        const esUrgente  = disponibles <= 3;
+        const estaLleno  = disponibles <= 0;
+
+        // ── Badge hero ──────────────────────────────────────
+        const badgeContainer = document.getElementById("badge-container");
+        const badge = document.createElement("div");
+        badge.className = "badge" + (esUrgente ? " urgente" : "");
+
+        const dot = document.createElement("span");
+        dot.className = "badge-dot";
+
+        const txt = document.createTextNode(
+            estaLleno
+                ? "Sin turnos disponibles esta semana"
+                : esUrgente
+                    ? `⚠️ Solo ${disponibles} turno${disponibles === 1 ? "" : "s"} disponible${disponibles === 1 ? "" : "s"}`
+                    : `${disponibles} de ${total} turnos disponibles esta semana`
+        );
+
+        badge.appendChild(dot);
+        badge.appendChild(txt);
+        badgeContainer.innerHTML = "";
+        badgeContainer.appendChild(badge);
+
+        // ── Texto inline bajo el botón ──────────────────────
+        const turnosInline = document.getElementById("turnos-inline");
+        if (estaLleno) {
+            turnosInline.textContent = "Sin turnos disponibles";
+            turnosInline.classList.add("urgente");
+        } else if (esUrgente) {
+            turnosInline.textContent = `Solo ${disponibles} turno${disponibles === 1 ? "" : "s"} libre${disponibles === 1 ? "" : "s"}`;
+            turnosInline.classList.add("urgente");
+        } else {
+            turnosInline.textContent = `${disponibles} turnos disponibles esta semana`;
+        }
+
+        // ── Badge urgencia CTA final ─────────────────────────
+        const urgencyBadge = document.getElementById("urgency-badge");
+        if (estaLleno) {
+            urgencyBadge.textContent = "🚫 Sin turnos disponibles esta semana";
+            urgencyBadge.classList.add("rojo");
+        } else if (esUrgente) {
+            urgencyBadge.textContent = `🔴 ¡Solo quedan ${disponibles} turno${disponibles === 1 ? "" : "s"}!`;
+            urgencyBadge.classList.add("rojo");
+        } else {
+            urgencyBadge.textContent = `⏳ Quedan ${disponibles} turnos esta semana`;
+        }
+
+        // ── Deshabilitar botones si está lleno ───────────────
+        if (estaLleno) {
+            const btnHero  = document.getElementById("btn-hero");
+            const btnFinal = document.getElementById("btn-final");
+            btnHero.classList.add("agotado");
+            btnHero.textContent = "Sin turnos disponibles esta semana";
+            btnFinal.classList.add("agotado");
+            btnFinal.textContent = "Sin turnos disponibles esta semana";
+        }
+    }
+
+    function actualizarUIFallback() {
+        // Si no se puede contactar el script, mostramos algo genérico
+        const badgeContainer = document.getElementById("badge-container");
+        badgeContainer.innerHTML = `
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Turnos disponibles esta semana
+            </div>`;
+        document.getElementById("turnos-inline").textContent = "Solo 10 turnos por semana";
+        document.getElementById("urgency-badge").textContent = "⏳ Quedan pocos turnos esta semana";
+    }
+
+    // ── Scroll animations ────────────────────────────────────
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".anim-section").forEach(el => observer.observe(el));
+
+    // ── Iniciar ──────────────────────────────────────────────
+    cargarTurnos();
+</script>
 
 </body>
 </html>
