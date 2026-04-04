@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>¿Tu PC tiene problemas? · Diagnóstico Gratis · Alma by Almaexon</title>
+    <meta name="description" content="Diagnóstico remoto 100% gratis para tu PC. Sin moverte de casa. En 15 minutos sabemos qué tiene tu equipo y qué hacer.">
+    <link rel="icon" type="image/x-icon" href="icono.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:        #111827;
+            --bg2:       #1A2333;
+            --card:      #1E2D40;
+            --card2:     #192638;
+            --border:    #2A3D54;
+            --border2:   #364F6B;
+            --teal:      #00AEEF;
+            --teal-warm: #00C9B1;
+            --teal-dim:  rgba(0, 174, 239, 0.12);
+            --teal-glow: rgba(0, 174, 239, 0.35);
+            --amber:     #F59E0B;
+            --amber-dim: rgba(245, 158, 11, 0.12);
+            --red:       #EF4444;
+            --text:      #F0F4F8;
+            --text2:     #CBD5E1;
+            --muted:     #7A95B0;
+            --muted2:    #A0B4C8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-atmosphere {
+            position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .bg-atmosphere::before {
+            content: '';
+            position: absolute; width: 70vw; height: 70vw; border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(0,174,239,0.055) 0%, transparent 65%);
+            top: -20vh; right: -30vw;
+        }
+        .bg-atmosphere::after {
+            content: '';
+            position: absolute; width: 80vw; height: 80vw; border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(0,201,177,0.04) 0%, transparent 65%);
+            bottom: -20vh; left: -30vw;
+        }
+
+        .bg-grid {
+            position: fixed; inset: 0; pointer-events: none; z-index: 0;
+            background-image:
+                linear-gradient(rgba(0,174,239,0.018) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,174,239,0.018) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 35%, black 20%, transparent 100%);
+        }
+
+        .container {
+            max-width: 720px; margin: 0 auto; padding: 0 20px;
+            position: relative; z-index: 1;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+        }
+
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+        }
+
+        .logo-text {
+            display: flex; flex-direction: column; line-height: 1;
+        }
+
+        .logo-alma {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem; font-weight: 700;
+            color: var(--teal);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-by {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem; font-weight: 300;
+            color: var(--muted2);
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-top: 1px;
+        }
+
+        @media (max-width: 480px) {
+            .logo-alma { font-size: 1.3rem; }
+            .logo-by { font-size: 0.55rem; letter-spacing: 0.12em; }
+        }
+
+        .hero { padding: 48px 0 32px; text-align: center; }
+
+        @media (max-width: 480px) {
+            .hero { padding: 32px 0 24px; }
+        }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, rgba(0,174,239,0.13), rgba(0,201,177,0.07));
+            border: 1px solid rgba(0,174,239,0.35);
+            color: var(--teal);
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+            text-transform: uppercase; padding: 6px 14px; border-radius: 100px;
+            margin-bottom: 28px;
+            opacity: 0; animation: slideDown 0.5s 0.1s ease forwards;
+            transition: background 0.4s, border-color 0.4s, color 0.4s;
+        }
+        .badge.urgente {
+            background: rgba(239,68,68,0.12);
+            border-color: rgba(239,68,68,0.4);
+            color: var(--red);
+        }
+        .badge-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--teal-warm);
+            box-shadow: 0 0 6px var(--teal-warm);
+            animation: breathe 2.5s infinite; flex-shrink: 0;
+        }
+        .badge.urgente .badge-dot {
+            background: var(--red); box-shadow: 0 0 6px var(--red);
+        }
+        .badge-skeleton {
+            display: inline-block; width: 200px; height: 32px;
+            background: linear-gradient(90deg, var(--border) 25%, var(--border2) 50%, var(--border) 75%);
+            background-size: 200% 100%; border-radius: 100px; margin-bottom: 28px;
+            animation: shimmer 1.4s infinite;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.6rem, 5.5vw, 3.2rem);
+            font-weight: 800; line-height: 1.15; margin-bottom: 18px;
+            opacity: 0; animation: slideUp 0.6s 0.2s ease forwards;
+        }
+        h1 .hl-q {
+            display: block; color: var(--muted2);
+            font-size: 0.7em; font-weight: 400;
+            letter-spacing: 0.01em; margin-bottom: 8px;
+            font-family: 'DM Sans', sans-serif;
+        }
+        h1 .hl-teal { color: var(--teal); }
+
+        .subtitle {
+            font-size: 0.95rem; color: var(--muted2); line-height: 1.65;
+            max-width: 520px; margin: 0 auto 32px;
+            opacity: 0; animation: slideUp 0.6s 0.3s ease forwards;
+        }
+        .subtitle strong { color: var(--text); font-weight: 500; }
+
+        @media (max-width: 480px) {
+            .subtitle { font-size: 0.88rem; line-height: 1.55; margin: 0 auto 24px; }
+        }
+
+        .cta-wrap { opacity: 0; animation: slideUp 0.6s 0.4s ease forwards; }
+
+        .btn-cta {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: linear-gradient(135deg, var(--teal), #0090cc);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 700;
+            letter-spacing: 0.03em; padding: 16px 32px; border-radius: 100px;
+            text-decoration: none;
+            box-shadow: 0 0 28px var(--teal-glow), 0 8px 24px rgba(0,0,0,0.35);
+            transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden;
+        }
+        .btn-cta::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+            opacity: 0; transition: opacity 0.2s;
+        }
+        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 0 48px var(--teal-glow), 0 12px 32px rgba(0,0,0,0.45); }
+        .btn-cta:hover::before { opacity: 1; }
+        .btn-cta.agotado {
+            background: linear-gradient(135deg, #2a3340, #1e2a38);
+            box-shadow: none; cursor: not-allowed; pointer-events: none;
+        }
+
+        @media (max-width: 480px) {
+            .btn-cta { padding: 14px 24px; font-size: 0.85rem; gap: 8px; }
+        }
+
+        .cta-sub {
+            margin-top: 12px; font-size: 0.72rem; color: var(--muted);
+            display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+        }
+        .cta-sub span { padding: 2px 10px; border-right: 1px solid var(--border2); }
+        .cta-sub span:last-child { border-right: none; }
+        #turnos-inline { font-weight: 500; color: var(--text2); transition: color 0.3s; }
+        #turnos-inline.urgente { color: var(--red); }
+
+        .trust-bar {
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px 0 40px; flex-wrap: wrap; row-gap: 8px;
+            opacity: 0; animation: fadeIn 0.7s 0.52s ease forwards;
+        }
+        .trust-item {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.75rem; color: var(--muted2);
+            padding: 0 12px; border-right: 1px solid var(--border);
+        }
+        .trust-item:last-child { border-right: none; }
+        .trust-check {
+            width: 18px; height: 18px; border-radius: 50%;
+            background: rgba(0,201,177,0.14); color: var(--teal-warm);
+            font-size: 0.65rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        @media (max-width: 540px) { 
+            .trust-item { border-right: none; padding: 4px 8px; font-size: 0.7rem; }
+            .trust-bar { gap: 6px; }
+        }
+
+        .anim-section {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .anim-section.visible { opacity: 1; transform: translateY(0); }
+
+        .section-label {
+            font-family: 'Montserrat', sans-serif; font-size: 0.65rem; font-weight: 600;
+            color: var(--muted); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 8px;
+        }
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.1rem, 3.2vw, 1.6rem); font-weight: 800; margin-bottom: 20px;
+        }
+        .section-title span { color: var(--teal); }
+
+        .problems { margin-bottom: 48px; }
+        .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        @media (max-width: 600px) { .pain-grid { grid-template-columns: 1fr; gap: 10px; } }
+
+        .pain-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 18px 16px; transition: border-color 0.2s, background 0.2s, transform 0.2s;
+        }
+        .pain-card:hover { border-color: var(--border2); background: var(--card2); transform: translateY(-2px); }
+        .pain-emoji { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+        .pain-card strong {
+            display: block; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700;
+            color: var(--text); margin-bottom: 5px;
+        }
+        .pain-card p { font-size: 0.8rem; color: var(--muted2); line-height: 1.55; }
+
+        .features-section { margin-bottom: 48px; }
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 500px) { .features-grid { grid-template-columns: 1fr; gap: 10px; } }
+
+        .feature-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 20px 16px; transition: border-color 0.2s, transform 0.2s;
+        }
+        .feature-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+        .feature-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+        .feature-card h3 {
+            font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px;
+        }
+        .feature-card p { font-size: 0.8rem; color: var(--muted2); line-height: 1.58; }
+
+        .proceso-section { margin-bottom: 48px; }
+        .proceso-box {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 24px 20px; position: relative; overflow: hidden;
+        }
+        .proceso-box::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--teal), var(--teal-warm), transparent);
+        }
+        .steps { display: flex; flex-direction: column; }
+        .step {
+            display: flex; align-items: flex-start; gap: 14px;
+            padding: 12px 0; position: relative;
+        }
+        .step:not(:last-child)::after {
+            content: ''; position: absolute; left: 14px; top: 42px; bottom: 0; width: 1px;
+            background: linear-gradient(to bottom, var(--border2), transparent);
+        }
+        .step-num {
+            flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+            background: var(--teal-dim); border: 1px solid rgba(0,174,239,0.45);
+            color: var(--teal); font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 0.75rem;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; z-index: 1;
+        }
+        .step-body { padding-top: 3px; }
+        .step-body h4 { font-size: 0.88rem; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+        .step-body p { font-size: 0.78rem; color: var(--muted); line-height: 1.52; }
+
+        @media (max-width: 480px) {
+            .proceso-box { padding: 20px 16px; }
+            .step { gap: 12px; padding: 10px 0; }
+            .step-body h4 { font-size: 0.85rem; }
+            .step-body p { font-size: 0.75rem; }
+        }
+
+        .cta-final { padding: 0 0 60px; }
+        .cta-final-box {
+            background: linear-gradient(135deg, rgba(0,174,239,0.07), rgba(0,201,177,0.04));
+            border: 1px solid rgba(0,174,239,0.18); border-radius: 20px;
+            padding: 36px 20px; text-align: center; position: relative; overflow: hidden;
+        }
+        .cta-final-box::before {
+            content: ''; position: absolute; width: 250px; height: 250px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,174,239,0.07) 0%, transparent 70%);
+            top: -80px; right: -80px; pointer-events: none;
+        }
+        .cta-final-box::after {
+            content: ''; position: absolute;
+            width: 150px; height: 150px;
+            bottom: -40px; left: -30px;
+            background: radial-gradient(circle, rgba(0,201,177,0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-urgency {
+            display: inline-block;
+            background: var(--amber-dim); border: 1px solid rgba(245,158,11,0.3);
+            color: var(--amber); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+            text-transform: uppercase; padding: 5px 12px; border-radius: 100px; margin-bottom: 16px;
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
+        }
+        .cta-urgency.rojo {
+            background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.35); color: var(--red);
+        }
+        .cta-final h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem); font-weight: 800; margin-bottom: 8px;
+        }
+        .cta-final p {
+            color: var(--muted2); font-size: 0.88rem;
+            max-width: 400px; margin: 0 auto 24px; line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            .cta-final { padding: 0 0 48px; }
+            .cta-final-box { padding: 28px 16px; }
+            .cta-final h2 { font-size: 1.25rem; }
+            .cta-final p { font-size: 0.82rem; margin-bottom: 20px; }
+        }
+
+        footer {
+            border-top: 1px solid var(--border); padding: 24px 0 20px;
+            text-align: center; font-size: 0.72rem; color: var(--muted); line-height: 1.8;
+        }
+        .footer-logo {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-bottom: 8px;
+        }
+        footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--teal); }
+        .social-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 12px; padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        @keyframes breathe {
+            0%,100% { opacity:1; } 50% { opacity:0.35; }
+        }
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        @keyframes slideDown {
+            from { opacity:0; transform: translateY(-8px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { opacity:0; transform: translateY(12px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity:0; } to { opacity:1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-atmosphere"></div>
+<div class="bg-grid"></div>
+
+<header>
+    <div class="container">
+        <div class="header-inner">
+            <img src="Almaexon.png" alt="Almaexon" style="width:48px;height:auto;object-fit:contain;max-height:48px;">
+            <div class="logo-text">
+                <span class="logo-alma">Alma</span>
+                <span class="logo-by">by Almaexon</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+
+        <section class="hero">
+            <div id="badge-container">
+                <div class="badge-skeleton"></div>
+            </div>
+
+            <h1>
+                <span class="hl-q">¿Tu PC tiene problemas?</span>
+                Te decimos qué tiene<br>
+                <span class="hl-teal">gratis, hoy, sin salir de casa.</span>
+            </h1>
+
+            <p class="subtitle">
+                Un técnico real se conecta a tu equipo y te dice exactamente qué tiene —
+                <strong>sin rodeos, sin tecnicismos, sin cobrarte nada.</strong>
+                Si querés repararlo, vos decidís.
+            </p>
+
+            <div class="cta-wrap">
+                <a id="btn-hero" href="https://forms.gle/ofe6qMtUQuzKQ5aTA" class="btn-cta" target="_blank" rel="noopener">
+                    <span>📋</span> Reservar mi diagnóstico gratis
+                </a>
+                <div class="cta-sub">
+                    <span>100% gratuito</span>
+                    <span id="turnos-inline">Cargando…</span>
+                    <span>Sin compromiso</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="trust-bar">
+            <div class="trust-item"><div class="trust-check">✓</div> PC, notebook o Mac</div>
+            <div class="trust-item"><div class="trust-check">✓</div> Ves todo en pantalla</div>
+            <div class="trust-item"><div class="trust-check">✓</div> Sin instalar nada raro</div>
+            <div class="trust-item"><div class="trust-check">✓</div> Respuesta en el día</div>
+        </div>
+
+        <section class="problems anim-section">
+            <p class="section-label">¿Te suena familiar?</p>
+            <h2 class="section-title">Situaciones que <span>todos</span> vivimos</h2>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <span class="pain-emoji">🐌</span>
+                    <strong>La PC va a paso de tortuga</strong>
+                    <p>Tardás 10 minutos en abrir el navegador y el ventilador suena como un avión.</p>
+                </div>
+                <div class="pain-card">
+                    <span class="pain-emoji">💀</span>
+                    <strong>Se apaga sola o no arranca</strong>
+                    <p>Pantalla azul, reinicio eterno o directamente no prende. No sabés si es grave.</p>
+                </div>
+                <div class="pain-card">
+                    <span class="pain-emoji">🦠</span>
+                    <strong>Algo raro está pasando</strong>
+                    <p>Pop-ups, programas que no instalaste, o la PC hace cosas sola. Puede ser un virus.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section anim-section">
+            <p class="section-label">Por qué elegirnos</p>
+            <h2 class="section-title">Un diagnóstico <span>de verdad</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🏠</span>
+                    <h3>Sin moverte de tu casa</h3>
+                    <p>Nos conectamos de forma remota y segura. Ves exactamente lo que hacemos en pantalla, en tiempo real.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>En 15 minutos lo sabemos</h3>
+                    <p>Usamos herramientas profesionales. Nada de "puede ser esto o aquello" — te damos una respuesta concreta.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📋</span>
+                    <h3>Explicación sin tecnicismos</h3>
+                    <p>Te contamos qué encontramos y cuáles son tus opciones reales para solucionarlo, en palabras simples.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3>Sin presión ni sorpresas</h3>
+                    <p>El diagnóstico es gratis, siempre. Si querés repararlo, vos decidís cuándo y cómo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="proceso-section anim-section">
+            <p class="section-label">El proceso</p>
+            <h2 class="section-title" style="margin-bottom: 18px;">Cuatro pasos, <span>sin complicaciones</span></h2>
+            <div class="proceso-box">
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <div class="step-body">
+                            <h4>Completás el formulario</h4>
+                            <p>Nos contás brevemente qué le pasa al equipo y elegís el horario que mejor te queda.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <div class="step-body">
+                            <h4>Te confirmamos el turno</h4>
+                            <p>Te contactamos por WhatsApp para confirmar y mandarte el acceso remoto seguro.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <div class="step-body">
+                            <h4>Diagnóstico en vivo</h4>
+                            <p>Nos conectamos a tu equipo con tu permiso y analizamos todo. Ves cada movimiento en pantalla.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">4</div>
+                        <div class="step-body">
+                            <h4>El veredicto</h4>
+                            <p>Te explicamos qué tiene y cuáles son tus opciones. Si querés seguir con la reparación, te damos presupuesto al toque — sin ninguna obligación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-final anim-section">
+            <div class="cta-final-box">
+                <div id="urgency-badge" class="cta-urgency">⏳ Cargando disponibilidad…</div>
+                <h2>No dejes la
