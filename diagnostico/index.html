@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Almaexon Diagnóstico | Herramienta profesional de análisis de PC</title>
+    <meta name="description" content="Descargá la herramienta oficial de diagnóstico de Almaexon. Escaneo completo de hardware, software, red y seguridad. Generá reportes en PDF.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../icono.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark:   '#0C1829',
+                            accent: '#2596BE',
+                            white:  '#FFFFFF',
+                            alert:  '#F1C40F',
+                            muted:  '#9CA3AF'
+                        }
+                    },
+                    fontFamily: {
+                        primary:   ['Montserrat', 'sans-serif'],
+                        secondary: ['Roboto', 'sans-serif'],
+                        tech:      ['Roboto Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'glow':       '0 0 20px rgba(37, 150, 190, 0.3)',
+                        'glow-alert': '0 0 20px rgba(241, 196, 15, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0C1829;
+            color: #FFFFFF;
+            font-family: 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0C1829; }
+        ::-webkit-scrollbar-thumb { background: #2596BE; border-radius: 4px; }
+
+        .glass-panel {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        .glass-panel:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(37,150,190,0.3);
+        }
+
+        .ambient-glow-1 {
+            position: absolute; top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(37,150,190,0.13) 0%, rgba(12,24,41,0) 70%);
+            z-index: -1; pointer-events: none;
+        }
+        .ambient-glow-2 {
+            position: absolute; bottom: -10%; right: -10%;
+            width: 40vw; height: 40vw;
+            background: radial-gradient(circle, rgba(241,196,15,0.05) 0%, rgba(12,24,41,0) 70%);
+            z-index: -1; pointer-events: none;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .btn-download {
+            background: linear-gradient(135deg, #2596BE, #1a6f8f);
+            box-shadow: 0 0 25px rgba(37,150,190,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(37,150,190,0.6);
+        }
+
+        /* Estilo para iconos de redes */
+        .social-icon {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            transition: transform 0.2s, filter 0.2s;
+        }
+        .social-icon:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden selection:bg-brand-accent selection:text-white">
+
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Header fijo estilo Almaexon -->
+    <header class="fixed w-full top-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/5">
+        <div class="container mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
+            <a href="https://almaexon.com" class="flex items-center gap-3 group" target="_blank" rel="noopener">
+                <img src="../Almaexon.png" alt="Almaexon" class="h-10 w-auto object-contain transition-transform group-hover:scale-105">
+                <span class="text-xl font-primary font-bold tracking-wide text-white">Almaexon</span>
+            </a>
+
+            <!-- Desktop nav -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-secondary font-medium text-gray-300">
+                <a href="#herramienta" class="hover:text-brand-accent transition-colors">Herramienta</a>
+                <a href="#funciones" class="hover:text-brand-accent transition-colors">Funciones</a>
+                <a href="#contacto-tecnico" class="hover:text-brand-accent transition-colors">Contacto técnico</a>
+            </nav>
+
+            <button id="mobile-menu-btn" class="md:hidden text-white text-3xl focus:scale-110 transition-transform">☰</button>
+        </div>
+
+        <!-- Mobile nav -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-brand-dark/95 backdrop-blur-xl border-b border-white/10 flex-col shadow-2xl md:hidden">
+            <a href="#herramienta" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Herramienta</a>
+            <a href="#funciones" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Funciones</a>
+            <a href="#contacto-tecnico" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Contacto técnico</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero principal -->
+        <section class="relative pt-40 pb-24 md:pt-52 md:pb-36 px-6 lg:px-12 text-center">
+            <div class="container mx-auto max-w-5xl">
+                <div class="inline-flex items-center gap-2 bg-brand-accent/10 border border-brand-accent/30 rounded-full px-4 py-1.5 mb-8 reveal">
+                    <span class="w-2 h-2 bg-brand-accent rounded-full animate-pulse"></span>
+                    <span class="text-brand-accent font-tech text-xs uppercase tracking-wider">Herramienta profesional de diagnóstico</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-primary font-extrabold leading-[1.15] mb-6 reveal">
+                    Analizá tu PC a fondo <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-blue-300">gratis y sin instalar</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 reveal leading-relaxed">
+                    Escaneo completo de hardware, software, red y seguridad. Generá reportes en PDF, testeá estabilidad y obtené un diagnóstico claro.
+                </p>
+                
+                <div class="reveal">
+                    <a href="../almaexon_diagnostico.zip" 
+                       class="btn-download inline-flex items-center gap-3 px-8 py-4 bg-brand-accent text-brand-dark font-primary font-bold text-lg rounded-xl hover:bg-white transition-all shadow-glow">
+                        📥 DESCARGAR AHORA (ZIP)
+                    </a>
+                    <p class="text-xs text-gray-500 font-tech mt-4">Archivo ZIP con el ejecutable y dependencias · Windows 10/11</p>
+                </div>
+
+                <!-- Trust bar -->
+                <div class="flex flex-wrap justify-center gap-6 mt-12 reveal">
+                    <div class="flex items-center gap-2 text-sm text-gray-400"><span class="text-brand-accent text-lg">✓</span> Sin instalación</div>
+                    <div class="flex items-center gap-2 text-sm text-gray-400"><span class="text-brand-accent text-lg">✓</span> Reporte en PDF</div>
+                    <div class="flex items-center gap-2 text-sm text-gray-400"><span class="text-brand-accent text-lg">✓</span> Prueba de estrés</div>
+                    <div class="flex items-center gap-2 text-sm text-gray-400"><span class="text-brand-accent text-lg">✓</span> Análisis IA</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de la herramienta (descripción) -->
+        <section id="herramienta" class="py-16 px-6 lg:px-12">
+            <div class="container mx-auto max-w-6xl">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="reveal">
+                        <span class="text-brand-accent font-tech text-sm uppercase tracking-widest block mb-3">¿Qué hace?</span>
+                        <h2 class="text-3xl md:text-4xl font-primary font-bold text-white mb-6">Diagnóstico completo <br> en minutos</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                            La herramienta analiza cada componente de tu PC y te muestra un resumen claro. No necesitas conocimientos técnicos: el sistema te explica qué significa cada cosa y qué hacer.
+                        </p>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-center gap-3"><span class="text-brand-accent text-xl">▹</span> CPU, RAM, disco, temperatura, frecuencia</li>
+                            <li class="flex items-center gap-3"><span class="text-brand-accent text-xl">▹</span> Procesos sospechosos, puertos abiertos, conexiones de red</li>
+                            <li class="flex items-center gap-3"><span class="text-brand-accent text-xl">▹</span> Salud SMART de discos, velocidad de lectura/escritura</li>
+                            <li class="flex items-center gap-3"><span class="text-brand-accent text-xl">▹</span> Antivirus instalado, actualizaciones pendientes, calidad WiFi</li>
+                        </ul>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-8 text-center reveal">
+                        <div class="w-20 h-20 mx-auto bg-brand-accent/20 rounded-full flex items-center justify-center text-4xl mb-6 shadow-glow">🖥️</div>
+                        <h3 class="text-2xl font-bold mb-3">¿Cómo usarlo?</h3>
+                        <p class="text-gray-400 text-sm mb-4">1. Descargá el ZIP y extraelo en una carpeta.</p>
+                        <p class="text-gray-400 text-sm mb-4">2. Ejecutá `gui_almaexon.exe` (no necesita instalación).</p>
+                        <p class="text-gray-400 text-sm mb-4">3. Hacé clic en "EJECUTAR DIAGNÓSTICO" y esperá el análisis.</p>
+                        <p class="text-gray-400 text-sm">4. Guardá el reporte en PDF o TXT para compartirlo con tu técnico.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Funciones destacadas -->
+        <section id="funciones" class="py-20 bg-black/30 border-y border-white/5">
+            <div class="container mx-auto px-6 lg:px-12 max-w-6xl">
+                <div class="text-center mb-14 reveal">
+                    <span class="text-brand-accent font-tech text-sm uppercase tracking-widest">Características</span>
+                    <h2 class="text-3xl md:text-4xl font-primary font-bold text-white mt-2">¿Qué <span class="text-brand-accent">podés hacer</span> con ella?</h2>
+                    <p class="text-gray-400 max-w-xl mx-auto mt-4">Todo lo que un técnico revisaría manualmente, ahora automatizado.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-panel p-6 rounded-xl text-center reveal">
+                        <div class="w-14 h-14 mx-auto bg-brand-accent/10 rounded-full flex items-center justify-center text-2xl mb-5">📊</div>
+                        <h3 class="text-xl font-bold mb-3">Reporte profesional</h3>
+                        <p class="text-gray-400 text-sm">Generá un PDF con todos los datos del sistema, listo para enviar a soporte o guardar como respaldo.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl text-center reveal">
+                        <div class="w-14 h-14 mx-auto bg-brand-accent/10 rounded-full flex items-center justify-center text-2xl mb-5">🔥</div>
+                        <h3 class="text-xl font-bold mb-3">Test de estrés</h3>
+                        <p class="text-gray-400 text-sm">Poné la CPU y RAM al límite para detectar inestabilidades, sobrecalentamiento o fallos ocultos.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl text-center reveal">
+                        <div class="w-14 h-14 mx-auto bg-brand-accent/10 rounded-full flex items-center justify-center text-2xl mb-5">🧠</div>
+                        <h3 class="text-xl font-bold mb-3">Inteligencia artificial</h3>
+                        <p class="text-gray-400 text-sm">Un modelo de detección de anomalías compara tu equipo con su propio historial y alerta comportamientos raros.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de contacto con técnico (WhatsApp, Instagram, Email) -->
+        <section id="contacto-tecnico" class="py-24 relative overflow-hidden bg-gradient-to-b from-brand-dark to-black/60">
+            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#2596BE 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="container mx-auto px-6 lg:px-12 max-w-4xl relative z-10">
+                <div class="text-center reveal mb-12">
+                    <span class="text-brand-accent font-tech text-sm uppercase tracking-widest block mb-2">¿Necesitás ayuda con el diagnóstico?</span>
+                    <h2 class="text-3xl md:text-5xl font-primary font-bold text-white mb-6">Consultá con un técnico</h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Si el reporte muestra algo que no entendés, escribinos. Te explicamos y te recomendamos los próximos pasos.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- WhatsApp -->
+                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-brand-accent transition-all reveal group">
+                        <div class="w-16 h-16 mx-auto mb-5 flex items-center justify-center">
+                            <img src="../wpp.png" alt="WhatsApp" class="social-icon w-12 h-12">
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">WhatsApp</h3>
+                        <p class="text-gray-400 text-sm mb-5">Envianos el PDF del diagnóstico y te damos una primera opinión sin cargo.</p>
+                        <a href="https://wa.me/5491154198091?text=Hola%20Almaexon,%20necesito%20interpretar%20el%20diagnóstico%20de%20mi%20PC" 
+                           target="_blank" 
+                           class="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#20b859] transition-all shadow-lg">
+                            📲 11 5419 8091
+                        </a>
+                    </div>
+
+                    <!-- Instagram -->
+                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-brand-accent transition-all reveal group">
+                        <div class="w-16 h-16 mx-auto mb-5 flex items-center justify-center">
+                            <img src="../ig.png" alt="Instagram" class="social-icon w-12 h-12">
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Instagram</h3>
+                        <p class="text-gray-400 text-sm mb-5">Seguinos para tips de mantenimiento y novedades de la herramienta.</p>
+                        <a href="https://www.instagram.com/almaexon" 
+                           target="_blank" 
+                           class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg">
+                            📷 @almaexon
+                        </a>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-brand-accent transition-all reveal group">
+                        <div class="w-16 h-16 mx-auto mb-5 flex items-center justify-center">
+                            <img src="../mail.png" alt="Email" class="social-icon w-12 h-12">
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Email</h3>
+                        <p class="text-gray-400 text-sm mb-5">Consultas más detalladas o para empresas.</p>
+                        <a href="mailto:contacto@almaexon.com" 
+                           class="inline-flex items-center gap-2 px-6 py-3 bg-brand-accent text-brand-dark font-bold rounded-xl hover:bg-white transition-all shadow-md">
+                            ✉️ contacto@almaexon.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preguntas frecuentes -->
+        <section class="py-20 px-6 lg:px-12">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center reveal mb-12">
+                    <h2 class="text-3xl font-primary font-bold text-white">Preguntas frecuentes</h2>
+                    <p class="text-gray-400 mt-2">Todo lo que necesitás saber antes de descargar</p>
+                </div>
+                <div class="space-y-5">
+                    <div class="glass-panel p-5 rounded-xl reveal">
+                        <h3 class="text-lg font-bold text-brand-accent mb-2">¿La herramienta es realmente gratuita?</h3>
+                        <p class="text-gray-400 text-sm">Sí, 100% gratuita. No hay costos ocultos ni versiones de pago. Podés usarla todas las veces que quieras.</p>
+                    </div>
+                    <div class="glass-panel p-5 rounded-xl reveal">
+                        <h3 class="text-lg font-bold text-brand-accent mb-2">¿Necesito instalar algo?</h3>
+                        <p class="text-gray-400 text-sm">No. Solo descargás el ZIP, lo extraés y ejecutás el archivo `.exe`. No modifica el registro ni deja residuos.</p>
+                    </div>
+                    <div class="glass-panel p-5 rounded-xl reveal">
+                        <h3 class="text-lg font-bold text-brand-accent mb-2">¿Qué información envía a internet?</h3>
+                        <p class="text-gray-400 text-sm">Ninguna. Todo el análisis se hace localmente. El único dato que se guarda es un historial anónimo en tu propia PC para el modelo de IA.</p>
+                    </div>
+                    <div class="glass-panel p-5 rounded-xl reveal">
+                        <h3 class="text-lg font-bold text-brand-accent mb-2">¿Puedo usarla en mi empresa?</h3>
+                        <p class="text-gray-400 text-sm">Sí, es ideal para diagnosticar varios equipos. Los reportes en PDF facilitan el seguimiento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to action final -->
+        <section class="py-16 bg-brand-accent/10 border-y border-brand-accent/20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-2xl md:text-3xl font-primary font-bold text-white mb-4">¿Listo para conocer el estado real de tu PC?</h2>
+                <p class="text-gray-300 mb-8 max-w-lg mx-auto">Descargá la herramienta, ejecutala y obtené un diagnóstico claro en minutos.</p>
+                <a href="../almaexon_diagnostico.zip" 
+                   class="inline-flex items-center gap-2 px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-xl hover:bg-white transition-all shadow-glow text-lg">
+                    📥 DESCARGAR HERRAMIENTA
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer completo (con términos y privacidad) -->
+    <footer class="bg-[#070e1a] border-t border-white/5 py-12">
+        <div class="container mx-auto px-6 lg:px-12 max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <a href="https://almaexon.com" class="flex items-center gap-3 group" target="_blank" rel="noopener">
+                    <img src="../Almaexon.png" alt="Almaexon" class="h-8 w-auto object-contain transition-transform group-hover:scale-105">
+                    <span class="text-xl font-primary font-bold tracking-wide text-white">Almaexon</span>
+                </a>
+                <div class="flex gap-8">
+                    <a href="https://wa.me/5491154198091" target="_blank" class="text-gray-400 hover:text-brand-accent transition flex items-center gap-2">
+                        <img src="../wpp.png" alt="WhatsApp" class="w-5 h-5">
+                        WhatsApp
+                    </a>
+                    <a href="https://www.instagram.com/almaexon" target="_blank" class="text-gray-400 hover:text-brand-accent transition flex items-center gap-2">
+                        <img src="../ig.png" alt="Instagram" class="w-5 h-5">
+                        Instagram
+                    </a>
+                    <a href="mailto:contacto@almaexon.com" class="text-gray-400 hover:text-brand-accent transition flex items-center gap-2">
+                        <img src="../mail.png" alt="Email" class="w-5 h-5">
+                        Email
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-8 pt-8 text-center text-xs text-gray-600 font-tech">
+                <p>© 2026 Almaexon · Soporte IT profesional para empresas y particulares · Buenos Aires, Argentina</p>
+                <p class="mt-2">Herramienta de diagnóstico oficial · Código abierto bajo licencia interna · <a href="/promo" class="text-brand-accent hover:underline">Diagnóstico gratuito aquí</a></p>
+            </div>
+            <div class="flex justify-center gap-6 mt-4 text-xs text-gray-500 font-tech">
+                <a href="/remoto/terminos.html" class="hover:text-brand-accent transition-colors">Términos de servicio</a>
+                <a href="/remoto/privacidad.html" class="hover:text-brand-accent transition-colors">Política de privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu
+        const btnMenu = document.getElementById('mobile-menu-btn');
+        const menuDropdown = document.getElementById('mobile-menu');
+        if (btnMenu && menuDropdown) {
+            btnMenu.addEventListener('click', () => menuDropdown.classList.toggle('hidden'));
+            menuDropdown.querySelectorAll('a').forEach(a =>
+                a.addEventListener('click', () => menuDropdown.classList.add('hidden'))
+            );
+        }
+
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    revealObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealEls.forEach(el => revealObs.observe(el));
+
+        // Smooth scroll para anclas
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === "#" || href === "") return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
