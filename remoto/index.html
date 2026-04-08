@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Almaexon Remoto | Soporte técnico instantáneo y seguro</title>
-    <meta name="description" content="Descargá nuestra herramienta oficial de soporte remoto. Conexión segura, rápida y cifrada para resolver problemas de tu PC o notebook sin moverte.">
+    <meta name="description" content="Descargá nuestra herramienta oficial de soporte remoto. Conexión segura, rápida y cifrada para resolver problemas de tu PC o notebook sin moverte. Diagnóstico gratis disponible.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="icono.ico">
@@ -99,6 +99,14 @@
             transform: translateY(-3px);
             box-shadow: 0 0 35px rgba(37,150,190,0.6);
         }
+        .btn-outline {
+            border: 1px solid rgba(37,150,190,0.5);
+            transition: all 0.2s;
+        }
+        .btn-outline:hover {
+            background: rgba(37,150,190,0.1);
+            border-color: #2596BE;
+        }
     </style>
 </head>
 <body class="relative overflow-x-hidden selection:bg-brand-accent selection:text-white">
@@ -106,24 +114,46 @@
     <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
 
-    <!-- Header simple pero elegante -->
-    <header class="relative z-20 py-6 border-b border-white/5 bg-brand-dark/40 backdrop-blur-md">
-        <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center">
+    <!-- Header con logo estilo promo.html -->
+    <header class="fixed w-full top-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/5">
+        <div class="container mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3 group">
-                <img src="Almaexon.png" alt="Almaexon" class="h-10 w-auto object-contain transition-transform group-hover:scale-105" onerror="this.style.display='none'">
-                <span class="text-xl font-primary font-bold tracking-wide text-white">Almaexon</span>
+                <!-- Logo igual que en promo.html (isotipo + texto) -->
+                <img src="isotipo_Almaexon.png" alt="Almaexon" 
+                     class="h-10 w-auto object-contain transition-transform group-hover:scale-105"
+                     onerror="this.src='Almaexon.png'">
+                <div class="flex flex-col leading-tight">
+                    <span class="text-xl font-primary font-bold tracking-wide text-white">Almaexon</span>
+                    <span class="text-[0.6rem] font-tech text-brand-accent/70 tracking-wider -mt-1">by Almaexon</span>
+                </div>
             </a>
-            <div class="hidden md:flex gap-6 text-sm font-secondary text-gray-300">
+
+            <!-- Desktop nav con enlace a diagnóstico gratis -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-secondary font-medium text-gray-300">
                 <a href="#herramienta" class="hover:text-brand-accent transition-colors">Herramienta</a>
                 <a href="#pasos" class="hover:text-brand-accent transition-colors">Cómo funciona</a>
                 <a href="#contacto-tecnico" class="hover:text-brand-accent transition-colors">Contacto técnico</a>
-            </div>
+                <a href="/promo" 
+                   class="px-5 py-2.5 bg-brand-accent/20 text-brand-accent font-bold rounded-lg hover:bg-brand-accent hover:text-brand-dark transition-all border border-brand-accent/30">
+                    🩺 Diagnóstico gratis
+                </a>
+            </nav>
+
+            <button id="mobile-menu-btn" class="md:hidden text-white text-3xl focus:scale-110 transition-transform">☰</button>
+        </div>
+
+        <!-- Mobile nav -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-brand-dark/95 backdrop-blur-xl border-b border-white/10 flex-col shadow-2xl md:hidden">
+            <a href="#herramienta" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Herramienta</a>
+            <a href="#pasos" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Cómo funciona</a>
+            <a href="#contacto-tecnico" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Contacto técnico</a>
+            <a href="/promo" class="px-6 py-4 text-brand-accent font-bold hover:bg-white/5">🩺 Diagnóstico gratis</a>
         </div>
     </header>
 
     <main>
-        <!-- Hero principal -->
-        <section class="relative pt-28 pb-20 md:pt-36 md:pb-28 px-6 lg:px-12 text-center">
+        <!-- Hero principal con llamado a diagnóstico gratis -->
+        <section class="relative pt-40 pb-24 md:pt-52 md:pb-36 px-6 lg:px-12 text-center">
             <div class="container mx-auto max-w-5xl">
                 <div class="inline-flex items-center gap-2 bg-brand-accent/10 border border-brand-accent/30 rounded-full px-4 py-1.5 mb-8 reveal">
                     <span class="w-2 h-2 bg-brand-accent rounded-full animate-pulse"></span>
@@ -139,15 +169,19 @@
                     Descargá nuestra herramienta exclusiva. Nos conectamos en segundos, resolvemos el problema sin vueltas y con la máxima privacidad.
                 </p>
                 
-                <div class="reveal">
+                <div class="flex flex-col sm:flex-row gap-5 justify-center reveal">
                     <a href="/rustdesk_almaexon.exe" 
-                       class="btn-download inline-flex items-center gap-3 px-10 py-5 bg-brand-accent text-brand-dark font-primary font-extrabold text-xl rounded-2xl hover:bg-white transition-all">
+                       class="btn-download inline-flex items-center gap-3 px-8 py-4 bg-brand-accent text-brand-dark font-primary font-bold text-lg rounded-xl hover:bg-white transition-all shadow-glow">
                         📥 DESCARGAR AHORA
                     </a>
-                    <p class="text-xs text-gray-500 font-tech mt-4">Versión personalizada para clientes Almaexon · Windows (x64)</p>
+                    <a href="/promo" 
+                       class="btn-outline inline-flex items-center gap-2 px-8 py-4 border border-brand-accent/50 text-brand-accent font-primary font-bold text-lg rounded-xl hover:bg-brand-accent/10 transition-all">
+                        🩺 Diagnóstico gratis
+                    </a>
                 </div>
+                <p class="text-xs text-gray-500 font-tech mt-4 reveal">Versión personalizada para clientes Almaexon · Windows (x64)</p>
 
-                <!-- Trust bar (estilo promo) -->
+                <!-- Trust bar -->
                 <div class="flex flex-wrap justify-center gap-6 mt-12 reveal">
                     <div class="flex items-center gap-2 text-sm text-gray-400"><span class="text-brand-accent text-lg">✓</span> Conexión cifrada AES-256</div>
                     <div class="flex items-center gap-2 text-sm text-gray-400"><span class="text-brand-accent text-lg">✓</span> Sin instalación compleja</div>
@@ -156,7 +190,7 @@
             </div>
         </section>
 
-        <!-- Sección de la herramienta (RustDesk) con más detalles -->
+        <!-- Sección de la herramienta (RustDesk) -->
         <section id="herramienta" class="py-16 px-6 lg:px-12">
             <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -185,7 +219,7 @@
             </div>
         </section>
 
-        <!-- Pasos / cómo funciona (estilo limpio) -->
+        <!-- Pasos / cómo funciona -->
         <section id="pasos" class="py-20 bg-black/30 border-y border-white/5">
             <div class="container mx-auto px-6 lg:px-12 max-w-6xl">
                 <div class="text-center mb-14 reveal">
@@ -249,7 +283,7 @@
             </div>
         </section>
 
-        <!-- Sección de contacto con técnico (WhatsApp e Instagram) requerida -->
+        <!-- Sección de contacto con técnico (WhatsApp e Instagram) -->
         <section id="contacto-tecnico" class="py-24 relative overflow-hidden bg-gradient-to-b from-brand-dark to-black/60">
             <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#2596BE 1px, transparent 1px); background-size: 24px 24px;"></div>
             <div class="container mx-auto px-6 lg:px-12 max-w-4xl relative z-10">
@@ -287,9 +321,9 @@
                     </div>
                 </div>
 
-                <!-- Email alternativo -->
+                <!-- Email simplificado: solo contacto@almaexon.com -->
                 <div class="text-center mt-12 reveal">
-                    <p class="text-gray-500 text-sm">También podés escribirnos a <a href="mailto:contacto@almaexon.com" class="text-brand-accent hover:underline">contacto@almaexon.com</a> o al <a href="mailto:contacto@almaexon.com.ar" class="text-brand-accent hover:underline">contacto@almaexon.com.ar</a></p>
+                    <p class="text-gray-500 text-sm">También podés escribirnos a <a href="mailto:contacto@almaexon.com" class="text-brand-accent hover:underline">contacto@almaexon.com</a></p>
                 </div>
             </div>
         </section>
@@ -318,15 +352,21 @@
             </div>
         </section>
 
-        <!-- Call to action final (descarga otra vez) -->
+        <!-- Call to action final (descarga + diagnóstico gratis) -->
         <section class="py-16 bg-brand-accent/10 border-y border-brand-accent/20">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-2xl md:text-3xl font-primary font-bold text-white mb-4">¿Listo para resolverlo?</h2>
                 <p class="text-gray-300 mb-8 max-w-lg mx-auto">Descargá la herramienta, ejecutala y contactanos. En pocos minutos tu equipo vuelve a funcionar.</p>
-                <a href="/rustdesk_almaexon.exe" 
-                   class="inline-flex items-center gap-2 px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-xl hover:bg-white transition-all shadow-glow text-lg">
-                    📥 DESCARGAR HERRAMIENTA
-                </a>
+                <div class="flex flex-col sm:flex-row gap-5 justify-center">
+                    <a href="/rustdesk_almaexon.exe" 
+                       class="inline-flex items-center gap-2 px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-xl hover:bg-white transition-all shadow-glow text-lg">
+                        📥 DESCARGAR HERRAMIENTA
+                    </a>
+                    <a href="/promo" 
+                       class="inline-flex items-center gap-2 px-8 py-4 border border-brand-accent/50 text-brand-accent font-bold rounded-xl hover:bg-brand-accent/10 transition-all text-lg">
+                        🩺 Diagnóstico gratis
+                    </a>
+                </div>
             </div>
         </section>
     </main>
@@ -336,7 +376,7 @@
         <div class="container mx-auto px-6 lg:px-12 max-w-6xl">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8">
                 <div class="flex items-center gap-3">
-                    <img src="Almaexon.png" alt="Almaexon" class="h-8 w-auto" onerror="this.style.display='none'">
+                    <img src="isotipo_Almaexon.png" alt="Almaexon" class="h-8 w-auto" onerror="this.src='Almaexon.png'">
                     <span class="text-xl font-primary font-bold text-white">Almaexon</span>
                 </div>
                 <div class="flex gap-8">
@@ -353,26 +393,36 @@
             </div>
             <div class="border-t border-white/10 mt-8 pt-8 text-center text-xs text-gray-600 font-tech">
                 <p>© 2026 Almaexon · Soporte IT profesional para empresas y particulares · Buenos Aires, Argentina</p>
-                <p class="mt-2">Herramienta de acceso remoto oficial · Conexión cifrada garantizada</p>
+                <p class="mt-2">Herramienta de acceso remoto oficial · Conexión cifrada garantizada · <a href="/promo" class="text-brand-accent hover:underline">Diagnóstico gratuito aquí</a></p>
             </div>
         </div>
     </footer>
 
-    <!-- Scroll reveal script -->
+    <!-- Scripts: mobile menu y scroll reveal -->
     <script>
-        const revealElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
+        // Mobile menu
+        const btnMenu = document.getElementById('mobile-menu-btn');
+        const menuDropdown = document.getElementById('mobile-menu');
+        if (btnMenu && menuDropdown) {
+            btnMenu.addEventListener('click', () => menuDropdown.classList.toggle('hidden'));
+            menuDropdown.querySelectorAll('a').forEach(a =>
+                a.addEventListener('click', () => menuDropdown.classList.add('hidden'))
+            );
+        }
+
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    revealObs.unobserve(e.target);
                 }
             });
         }, { threshold: 0.1 });
-        revealElements.forEach(el => observer.observe(el));
+        revealEls.forEach(el => revealObs.observe(el));
 
-        // Mobile menu simple (si se quisiera agregar hamburguesa, pero no es necesario para este layout)
-        // Asegurar que los enlaces internos sean suaves
+        // Smooth scroll para enlaces internos
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
