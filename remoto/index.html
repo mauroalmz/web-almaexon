@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soporte Remoto | Almaexon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Almaexon Remoto | Soporte técnico instantáneo y seguro</title>
+    <meta name="description" content="Descargá nuestra herramienta oficial de soporte remoto. Conexión segura, rápida y cifrada para resolver problemas de tu PC o notebook sin moverte.">
     
-    <!-- Mismos recursos que el sitio principal -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="icono.ico">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -19,13 +25,19 @@
                         brand: {
                             dark:   '#0C1829',
                             accent: '#2596BE',
-                            white:  '#FFFFFF'
+                            white:  '#FFFFFF',
+                            alert:  '#F1C40F',
+                            muted:  '#9CA3AF'
                         }
                     },
                     fontFamily: {
                         primary:   ['Montserrat', 'sans-serif'],
                         secondary: ['Roboto', 'sans-serif'],
                         tech:      ['Roboto Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'glow':       '0 0 20px rgba(37, 150, 190, 0.3)',
+                        'glow-alert': '0 0 20px rgba(241, 196, 15, 0.2)',
                     }
                 }
             }
@@ -33,101 +45,345 @@
     </script>
 
     <style>
-        body { background-color: #0C1829; color: #FFFFFF; font-family: 'Roboto', sans-serif; }
+        body {
+            background-color: #0C1829;
+            color: #FFFFFF;
+            font-family: 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0C1829; }
+        ::-webkit-scrollbar-thumb { background: #2596BE; border-radius: 4px; }
+
         .glass-panel {
             background: rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.05);
             backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
         }
-        .ambient-glow {
-            position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
-            width: 60vw; height: 60vw;
-            background: radial-gradient(circle, rgba(37,150,190,0.08) 0%, rgba(12,24,41,0) 70%);
+        .glass-panel:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(37,150,190,0.3);
+        }
+
+        .ambient-glow-1 {
+            position: absolute; top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(37,150,190,0.13) 0%, rgba(12,24,41,0) 70%);
             z-index: -1; pointer-events: none;
+        }
+        .ambient-glow-2 {
+            position: absolute; bottom: -10%; right: -10%;
+            width: 40vw; height: 40vw;
+            background: radial-gradient(circle, rgba(241,196,15,0.05) 0%, rgba(12,24,41,0) 70%);
+            z-index: -1; pointer-events: none;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Botón de descarga con efecto */
+        .btn-download {
+            background: linear-gradient(135deg, #2596BE, #1a6f8f);
+            box-shadow: 0 0 25px rgba(37,150,190,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(37,150,190,0.6);
         }
     </style>
 </head>
-<body class="relative min-h-screen flex flex-col items-center">
+<body class="relative overflow-x-hidden selection:bg-brand-accent selection:text-white">
 
-    <div class="ambient-glow"></div>
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
 
-    <!-- Header / Logo -->
-    <header class="w-full py-8 flex justify-center">
-        <a href="/" class="flex items-center gap-3">
-            <img src="/Almaexon.png" alt="Almaexon" class="h-12 w-auto">
-            <span class="text-2xl font-primary font-bold tracking-wide">Almaexon</span>
-        </a>
+    <!-- Header simple pero elegante -->
+    <header class="relative z-20 py-6 border-b border-white/5 bg-brand-dark/40 backdrop-blur-md">
+        <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="Almaexon.png" alt="Almaexon" class="h-10 w-auto object-contain transition-transform group-hover:scale-105" onerror="this.style.display='none'">
+                <span class="text-xl font-primary font-bold tracking-wide text-white">Almaexon</span>
+            </a>
+            <div class="hidden md:flex gap-6 text-sm font-secondary text-gray-300">
+                <a href="#herramienta" class="hover:text-brand-accent transition-colors">Herramienta</a>
+                <a href="#pasos" class="hover:text-brand-accent transition-colors">Cómo funciona</a>
+                <a href="#contacto-tecnico" class="hover:text-brand-accent transition-colors">Contacto técnico</a>
+            </div>
+        </div>
     </header>
 
-    <main class="container mx-auto px-6 max-w-4xl text-center py-12">
-        
-        <span class="text-brand-accent font-tech text-sm uppercase tracking-widest mb-4 block">Herramienta de Asistencia Directa</span>
-        
-        <h1 class="text-4xl md:text-5xl font-primary font-extrabold mb-6">Soporte Remoto <span class="text-brand-accent">Profesional</span></h1>
-        
-        <p class="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
-            Descargá nuestra herramienta oficial para que podamos asistirte en tiempo real, sin demoras y con la máxima seguridad.
-        </p>
-
-        <!-- Sección de Descarga -->
-        <div class="glass-panel p-8 md:p-12 rounded-3xl border-t-2 border-t-brand-accent shadow-2xl mb-16">
-            <div class="text-5xl mb-6">⚡</div>
-            <h2 class="text-2xl font-bold mb-4">Almaexon Remoto (RustDesk)</h2>
-            <p class="text-gray-300 mb-8 text-sm md:text-base">
-                Esta herramienta nos permite visualizar y controlar tu equipo de forma segura para resolver problemas de software, configuración de redes o mantenimiento preventivo.
-            </p>
-            
-            <a href="/rustdesk_almaexon.exe" 
-               class="inline-flex items-center gap-3 px-10 py-5 bg-brand-accent text-brand-dark font-primary font-extrabold text-xl rounded-2xl hover:bg-white hover:-translate-y-1 transition-all shadow-[0_0_30px_rgba(37,150,190,0.4)]">
-                📥 DESCARGAR AHORA
-            </a>
-            
-            <p class="mt-6 text-xs text-gray-500 font-tech">Versión personalizada para clientes de Almaexon · Windows x64</p>
-        </div>
-
-        <!-- Beneficios -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            <div class="glass-panel p-6 rounded-2xl">
-                <div class="text-brand-accent text-xl mb-3">🔒</div>
-                <h4 class="font-bold mb-2">Conexión Cifrada</h4>
-                <p class="text-gray-400 text-sm">Toda la sesión está protegida con cifrado de grado bancario (AES-256).</p>
-            </div>
-            <div class="glass-panel p-6 rounded-2xl">
-                <div class="text-brand-accent text-xl mb-3">🚀</div>
-                <h4 class="font-bold mb-2">Resolución Inmediata</h4>
-                <p class="text-gray-400 text-sm">El 80% de los incidentes se resuelven en minutos sin esperar una visita técnica.</p>
-            </div>
-            <div class="glass-panel p-6 rounded-2xl">
-                <div class="text-brand-accent text-xl mb-3">🤝</div>
-                <h4 class="font-bold mb-2">Control Total</h4>
-                <p class="text-gray-400 text-sm">Vos decidís cuándo iniciamos y cuándo terminamos la sesión de soporte.</p>
-            </div>
-        </div>
-
-        <!-- Instrucciones Rápidas -->
-        <div class="mt-20 text-center">
-            <h3 class="text-xl font-bold mb-6 text-brand-accent uppercase tracking-widest font-tech text-sm">¿Cómo funciona?</h3>
-            <div class="flex flex-col md:flex-row justify-center gap-8 text-sm text-gray-400">
-                <div class="flex flex-col items-center">
-                    <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center mb-3 text-white font-bold">1</span>
-                    <p>Descargá y ejecutá el archivo.</p>
+    <main>
+        <!-- Hero principal -->
+        <section class="relative pt-28 pb-20 md:pt-36 md:pb-28 px-6 lg:px-12 text-center">
+            <div class="container mx-auto max-w-5xl">
+                <div class="inline-flex items-center gap-2 bg-brand-accent/10 border border-brand-accent/30 rounded-full px-4 py-1.5 mb-8 reveal">
+                    <span class="w-2 h-2 bg-brand-accent rounded-full animate-pulse"></span>
+                    <span class="text-brand-accent font-tech text-xs uppercase tracking-wider">Soporte remoto oficial</span>
                 </div>
-                <div class="flex flex-col items-center">
-                    <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center mb-3 text-white font-bold">2</span>
-                    <p>Pasanos el ID que aparece en pantalla.</p>
+                
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-primary font-extrabold leading-[1.15] mb-6 reveal">
+                    Asistencia técnica <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-blue-300">inmediata y segura</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 reveal leading-relaxed">
+                    Descargá nuestra herramienta exclusiva. Nos conectamos en segundos, resolvemos el problema sin vueltas y con la máxima privacidad.
+                </p>
+                
+                <div class="reveal">
+                    <a href="/rustdesk_almaexon.exe" 
+                       class="btn-download inline-flex items-center gap-3 px-10 py-5 bg-brand-accent text-brand-dark font-primary font-extrabold text-xl rounded-2xl hover:bg-white transition-all">
+                        📥 DESCARGAR AHORA
+                    </a>
+                    <p class="text-xs text-gray-500 font-tech mt-4">Versión personalizada para clientes Almaexon · Windows (x64)</p>
                 </div>
-                <div class="flex flex-col items-center">
-                    <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center mb-3 text-white font-bold">3</span>
-                    <p>¡Listo! Comenzamos la reparación.</p>
+
+                <!-- Trust bar (estilo promo) -->
+                <div class="flex flex-wrap justify-center gap-6 mt-12 reveal">
+                    <div class="flex items-center gap-2 text-sm text-gray-400"><span class="text-brand-accent text-lg">✓</span> Conexión cifrada AES-256</div>
+                    <div class="flex items-center gap-2 text-sm text-gray-400"><span class="text-brand-accent text-lg">✓</span> Sin instalación compleja</div>
+                    <div class="flex items-center gap-2 text-sm text-gray-400"><span class="text-brand-accent text-lg">✓</span> Control total (aceptás cada acceso)</div>
                 </div>
             </div>
-        </div>
+        </section>
 
+        <!-- Sección de la herramienta (RustDesk) con más detalles -->
+        <section id="herramienta" class="py-16 px-6 lg:px-12">
+            <div class="container mx-auto max-w-6xl">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="reveal">
+                        <span class="text-brand-accent font-tech text-sm uppercase tracking-widest block mb-3">Nuestra herramienta</span>
+                        <h2 class="text-3xl md:text-4xl font-primary font-bold text-white mb-6">Almaexon Remoto <br> (basado en RustDesk)</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                            Desarrollamos una versión personalizada y segura del mejor software de escritorio remoto open source. 
+                            Sin cuentas, sin complicaciones, sólo generás un ID y nosotros te asistimos al instante.
+                        </p>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-center gap-3"><span class="text-brand-accent text-xl">▹</span> Conexión directa sin servidores intermedios dudosos</li>
+                            <li class="flex items-center gap-3"><span class="text-brand-accent text-xl">▹</span> No requiere permisos de administrador para ejecutarse</li>
+                            <li class="flex items-center gap-3"><span class="text-brand-accent text-xl">▹</span> Compatible con Windows 10/11 (pronto Mac y Linux)</li>
+                        </ul>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-8 text-center reveal">
+                        <div class="w-20 h-20 mx-auto bg-brand-accent/20 rounded-full flex items-center justify-center text-4xl mb-6 shadow-glow">🖥️</div>
+                        <h3 class="text-2xl font-bold mb-3">¿Ya tenés el programa?</h3>
+                        <p class="text-gray-400 text-sm mb-6">Si ya lo descargaste, ejecutalo y compartinos el ID por WhatsApp.</p>
+                        <div class="bg-black/30 rounded-xl p-4 border border-white/10 font-tech text-sm text-gray-300 break-all">
+                            <span class="text-brand-accent">ID temporal:</span> aparece al abrir el programa
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pasos / cómo funciona (estilo limpio) -->
+        <section id="pasos" class="py-20 bg-black/30 border-y border-white/5">
+            <div class="container mx-auto px-6 lg:px-12 max-w-6xl">
+                <div class="text-center mb-14 reveal">
+                    <span class="text-brand-accent font-tech text-sm uppercase tracking-widest">Proceso simple</span>
+                    <h2 class="text-3xl md:text-4xl font-primary font-bold text-white mt-2">Empezamos en <span class="text-brand-accent">tres pasos</span></h2>
+                    <p class="text-gray-400 max-w-xl mx-auto mt-4">Sin demoras, sin tecnicismos. En menos de 2 minutos ya estamos resolviendo tu problema.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-panel p-6 rounded-xl text-center reveal">
+                        <div class="w-14 h-14 mx-auto bg-brand-accent/10 rounded-full flex items-center justify-center text-2xl font-bold text-brand-accent border border-brand-accent/30 mb-5">1</div>
+                        <h3 class="text-xl font-bold mb-3">Descargá y ejecutá</h3>
+                        <p class="text-gray-400 text-sm">Hacé clic en el botón de descarga y abrí el archivo (no necesita instalación).</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl text-center reveal">
+                        <div class="w-14 h-14 mx-auto bg-brand-accent/10 rounded-full flex items-center justify-center text-2xl font-bold text-brand-accent border border-brand-accent/30 mb-5">2</div>
+                        <h3 class="text-xl font-bold mb-3">Compartí el ID</h3>
+                        <p class="text-gray-400 text-sm">Nos mandás el código de 9 dígitos por WhatsApp o el medio que prefieras.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl text-center reveal">
+                        <div class="w-14 h-14 mx-auto bg-brand-accent/10 rounded-full flex items-center justify-center text-2xl font-bold text-brand-accent border border-brand-accent/30 mb-5">3</div>
+                        <h3 class="text-xl font-bold mb-3">Recibí asistencia</h3>
+                        <p class="text-gray-400 text-sm">Vos aceptás la conexión y empezamos a diagnosticar y solucionar en vivo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Beneficios / Seguridad -->
+        <section class="py-20 px-6 lg:px-12">
+            <div class="container mx-auto max-w-6xl">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="reveal">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-xl">🔒</div>
+                            <h3 class="text-2xl font-bold">Seguridad ante todo</h3>
+                        </div>
+                        <p class="text-gray-400 leading-relaxed mb-5">
+                            La sesión remota está cifrada punto a punto (AES-256). Nosotros no podemos acceder sin tu aprobación explícita, y vos ves cada movimiento en tiempo real. 
+                            Al finalizar, el acceso se revoca automáticamente.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li class="flex items-center gap-2"><span class="text-brand-accent">✓</span> No almacenamos ninguna ID histórica</li>
+                            <li class="flex items-center gap-2"><span class="text-brand-accent">✓</span> Compatible con antivirus y firewalls corporativos</li>
+                        </ul>
+                    </div>
+                    <div class="reveal">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-xl">⚡</div>
+                            <h3 class="text-2xl font-bold">Respuesta ultrarrápida</h3>
+                        </div>
+                        <p class="text-gray-400 leading-relaxed mb-5">
+                            El 85% de los incidentes se resuelven en menos de 30 minutos por remoto. 
+                            Evitamos tiempos de espera, traslados y costos adicionales. Nuestro equipo técnico está disponible en horario comercial con prioridad para urgencias.
+                        </p>
+                        <div class="bg-brand-accent/5 p-4 rounded-xl border-l-4 border-brand-accent">
+                            <p class="text-sm font-tech text-brand-accent">SLA para clientes con plan: respuesta &lt; 4hs · Urgencias &lt; 2hs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de contacto con técnico (WhatsApp e Instagram) requerida -->
+        <section id="contacto-tecnico" class="py-24 relative overflow-hidden bg-gradient-to-b from-brand-dark to-black/60">
+            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#2596BE 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="container mx-auto px-6 lg:px-12 max-w-4xl relative z-10">
+                <div class="text-center reveal mb-12">
+                    <span class="text-brand-accent font-tech text-sm uppercase tracking-widest block mb-2">¿Necesitás asistencia ahora?</span>
+                    <h2 class="text-3xl md:text-5xl font-primary font-bold text-white mb-6">Contactá a un técnico <br> en segundos</h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Escribinos por WhatsApp o seguinos en Instagram. Respondemos en menos de 30 minutos en horario hábil.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- WhatsApp -->
+                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-brand-accent transition-all reveal group">
+                        <div class="w-16 h-16 mx-auto bg-[#25D366]/10 rounded-full flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition">💬</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">WhatsApp Comercial</h3>
+                        <p class="text-gray-400 text-sm mb-5">Consultas técnicas, diagnóstico rápido o asistencia para descargar la herramienta.</p>
+                        <a href="https://wa.me/5491154198091?text=Hola%20Almaexon,%20necesito%20soporte%20remoto%20para%20mi%20PC" 
+                           target="_blank" 
+                           class="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#20b859] transition-all shadow-lg">
+                            📲 11 5419 8091
+                        </a>
+                        <p class="text-xs text-gray-500 mt-4 font-tech">Respuesta típica: 15 minutos</p>
+                    </div>
+
+                    <!-- Instagram -->
+                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-brand-accent transition-all reveal group">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition">📸</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Instagram</h3>
+                        <p class="text-gray-400 text-sm mb-5">Seguinos para tips de mantenimiento, novedades y contacto directo por DM.</p>
+                        <a href="https://www.instagram.com/almaexon" 
+                           target="_blank" 
+                           class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg">
+                            📷 @almaexon
+                        </a>
+                        <p class="text-xs text-gray-500 mt-4 font-tech">Contenido útil todos los martes</p>
+                    </div>
+                </div>
+
+                <!-- Email alternativo -->
+                <div class="text-center mt-12 reveal">
+                    <p class="text-gray-500 text-sm">También podés escribirnos a <a href="mailto:contacto@almaexon.com" class="text-brand-accent hover:underline">contacto@almaexon.com</a> o al <a href="mailto:contacto@almaexon.com.ar" class="text-brand-accent hover:underline">contacto@almaexon.com.ar</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preguntas frecuentes rápidas -->
+        <section class="py-20 px-6 lg:px-12">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center reveal mb-12">
+                    <h2 class="text-3xl font-primary font-bold text-white">Preguntas frecuentes</h2>
+                    <p class="text-gray-400 mt-2">Todo lo que necesitás saber antes de conectarte</p>
+                </div>
+                <div class="space-y-5">
+                    <div class="glass-panel p-5 rounded-xl reveal">
+                        <h3 class="text-lg font-bold text-brand-accent mb-2">¿Es seguro dar el ID de mi PC?</h3>
+                        <p class="text-gray-400 text-sm">Sí, porque vos tenés que aceptar manualmente la conexión cada vez. Nadie puede acceder sin tu permiso expreso. Además, el ID cambia en cada ejecución si reiniciás el programa.</p>
+                    </div>
+                    <div class="glass-panel p-5 rounded-xl reveal">
+                        <h3 class="text-lg font-bold text-brand-accent mb-2">¿Qué problemas pueden resolver por remoto?</h3>
+                        <p class="text-gray-400 text-sm">Lentitud extrema, virus, errores de sistema, configuración de correo, impresoras, redes WiFi, instalación de software, backups y mucho más. Si es un problema físico (hardware), te lo indicamos y coordinamos visita.</p>
+                    </div>
+                    <div class="glass-panel p-5 rounded-xl reveal">
+                        <h3 class="text-lg font-bold text-brand-accent mb-2">¿Tiene costo el diagnóstico remoto?</h3>
+                        <p class="text-gray-400 text-sm">El diagnóstico inicial es sin cargo para nuevos clientes. Si ya sos parte de algún plan de mantenimiento, el soporte remoto está incluido. Para reparaciones puntuales, te pasamos presupuesto antes de empezar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to action final (descarga otra vez) -->
+        <section class="py-16 bg-brand-accent/10 border-y border-brand-accent/20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-2xl md:text-3xl font-primary font-bold text-white mb-4">¿Listo para resolverlo?</h2>
+                <p class="text-gray-300 mb-8 max-w-lg mx-auto">Descargá la herramienta, ejecutala y contactanos. En pocos minutos tu equipo vuelve a funcionar.</p>
+                <a href="/rustdesk_almaexon.exe" 
+                   class="inline-flex items-center gap-2 px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-xl hover:bg-white transition-all shadow-glow text-lg">
+                    📥 DESCARGAR HERRAMIENTA
+                </a>
+            </div>
+        </section>
     </main>
 
-    <footer class="mt-auto py-10 border-t border-white/5 w-full text-center text-gray-500 text-xs font-tech">
-        © 2026 Almaexon · Soporte IT Empresarial
+    <!-- Footer completo con redes y derechos -->
+    <footer class="bg-[#070e1a] border-t border-white/5 py-12">
+        <div class="container mx-auto px-6 lg:px-12 max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <img src="Almaexon.png" alt="Almaexon" class="h-8 w-auto" onerror="this.style.display='none'">
+                    <span class="text-xl font-primary font-bold text-white">Almaexon</span>
+                </div>
+                <div class="flex gap-8">
+                    <a href="https://wa.me/5491154198091" target="_blank" class="text-gray-400 hover:text-brand-accent transition flex items-center gap-2">
+                        <span class="text-xl">💬</span> WhatsApp
+                    </a>
+                    <a href="https://www.instagram.com/almaexon" target="_blank" class="text-gray-400 hover:text-brand-accent transition flex items-center gap-2">
+                        <span class="text-xl">📷</span> Instagram
+                    </a>
+                    <a href="mailto:contacto@almaexon.com" class="text-gray-400 hover:text-brand-accent transition flex items-center gap-2">
+                        <span class="text-xl">✉️</span> Email
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-8 pt-8 text-center text-xs text-gray-600 font-tech">
+                <p>© 2026 Almaexon · Soporte IT profesional para empresas y particulares · Buenos Aires, Argentina</p>
+                <p class="mt-2">Herramienta de acceso remoto oficial · Conexión cifrada garantizada</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- Scroll reveal script -->
+    <script>
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => observer.observe(el));
+
+        // Mobile menu simple (si se quisiera agregar hamburguesa, pero no es necesario para este layout)
+        // Asegurar que los enlaces internos sean suaves
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === "#" || href === "") return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
