@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Almaexon Remoto | Soporte técnico instantáneo y seguro</title>
-    <meta name="description" content="Descargá nuestra herramienta oficial de soporte remoto. Conexión segura, rápida y cifrada para resolver problemas de tu PC o notebook sin moverte. Diagnóstico gratis disponible.">
-    
+    <meta name="description" content="Descargá nuestra herramienta oficial de soporte remoto. Conexión segura, rápida y cifrada para resolver problemas de tu PC o notebook sin moverte.">
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="icono.ico">
+    <link rel="icon" type="image/x-icon" href="../icono.ico">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,7 +89,6 @@
             transform: translateY(0);
         }
         
-        /* Botón de descarga con efecto */
         .btn-download {
             background: linear-gradient(135deg, #2596BE, #1a6f8f);
             box-shadow: 0 0 25px rgba(37,150,190,0.4);
@@ -99,13 +98,17 @@
             transform: translateY(-3px);
             box-shadow: 0 0 35px rgba(37,150,190,0.6);
         }
-        .btn-outline {
-            border: 1px solid rgba(37,150,190,0.5);
-            transition: all 0.2s;
+
+        /* Estilo para iconos de redes */
+        .social-icon {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            transition: transform 0.2s, filter 0.2s;
         }
-        .btn-outline:hover {
-            background: rgba(37,150,190,0.1);
-            border-color: #2596BE;
+        .social-icon:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
         }
     </style>
 </head>
@@ -114,29 +117,19 @@
     <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
 
-    <!-- Header con logo estilo promo.html -->
+    <!-- Header fijo estilo Almaexon -->
     <header class="fixed w-full top-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3 group">
-                <!-- Logo igual que en promo.html (isotipo + texto) -->
-                <img src="isotipo_Almaexon.png" alt="Almaexon" 
-                     class="h-10 w-auto object-contain transition-transform group-hover:scale-105"
-                     onerror="this.src='Almaexon.png'">
-                <div class="flex flex-col leading-tight">
-                    <span class="text-xl font-primary font-bold tracking-wide text-white">Almaexon</span>
-                    <span class="text-[0.6rem] font-tech text-brand-accent/70 tracking-wider -mt-1">by Almaexon</span>
-                </div>
+            <a href="https://almaexon.com" class="flex items-center gap-3 group" target="_blank" rel="noopener">
+                <img src="../Almaexon.png" alt="Almaexon" class="h-10 w-auto object-contain transition-transform group-hover:scale-105">
+                <span class="text-xl font-primary font-bold tracking-wide text-white">Almaexon</span>
             </a>
 
-            <!-- Desktop nav con enlace a diagnóstico gratis -->
+            <!-- Desktop nav -->
             <nav class="hidden md:flex items-center gap-6 text-sm font-secondary font-medium text-gray-300">
                 <a href="#herramienta" class="hover:text-brand-accent transition-colors">Herramienta</a>
                 <a href="#pasos" class="hover:text-brand-accent transition-colors">Cómo funciona</a>
                 <a href="#contacto-tecnico" class="hover:text-brand-accent transition-colors">Contacto técnico</a>
-                <a href="/promo" 
-                   class="px-5 py-2.5 bg-brand-accent/20 text-brand-accent font-bold rounded-lg hover:bg-brand-accent hover:text-brand-dark transition-all border border-brand-accent/30">
-                    🩺 Diagnóstico gratis
-                </a>
             </nav>
 
             <button id="mobile-menu-btn" class="md:hidden text-white text-3xl focus:scale-110 transition-transform">☰</button>
@@ -147,12 +140,11 @@
             <a href="#herramienta" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Herramienta</a>
             <a href="#pasos" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Cómo funciona</a>
             <a href="#contacto-tecnico" class="px-6 py-4 text-white hover:bg-white/5 border-b border-white/5 font-medium">Contacto técnico</a>
-            <a href="/promo" class="px-6 py-4 text-brand-accent font-bold hover:bg-white/5">🩺 Diagnóstico gratis</a>
         </div>
     </header>
 
     <main>
-        <!-- Hero principal con llamado a diagnóstico gratis -->
+        <!-- Hero principal -->
         <section class="relative pt-40 pb-24 md:pt-52 md:pb-36 px-6 lg:px-12 text-center">
             <div class="container mx-auto max-w-5xl">
                 <div class="inline-flex items-center gap-2 bg-brand-accent/10 border border-brand-accent/30 rounded-full px-4 py-1.5 mb-8 reveal">
@@ -169,17 +161,13 @@
                     Descargá nuestra herramienta exclusiva. Nos conectamos en segundos, resolvemos el problema sin vueltas y con la máxima privacidad.
                 </p>
                 
-                <div class="flex flex-col sm:flex-row gap-5 justify-center reveal">
-                    <a href="/rustdesk_almaexon.exe" 
+                <div class="reveal">
+                    <a href="../rustdesk_almaexon.exe" 
                        class="btn-download inline-flex items-center gap-3 px-8 py-4 bg-brand-accent text-brand-dark font-primary font-bold text-lg rounded-xl hover:bg-white transition-all shadow-glow">
                         📥 DESCARGAR AHORA
                     </a>
-                    <a href="/promo" 
-                       class="btn-outline inline-flex items-center gap-2 px-8 py-4 border border-brand-accent/50 text-brand-accent font-primary font-bold text-lg rounded-xl hover:bg-brand-accent/10 transition-all">
-                        🩺 Diagnóstico gratis
-                    </a>
+                    <p class="text-xs text-gray-500 font-tech mt-4">Versión personalizada para clientes Almaexon · Windows (x64)</p>
                 </div>
-                <p class="text-xs text-gray-500 font-tech mt-4 reveal">Versión personalizada para clientes Almaexon · Windows (x64)</p>
 
                 <!-- Trust bar -->
                 <div class="flex flex-wrap justify-center gap-6 mt-12 reveal">
@@ -283,33 +271,36 @@
             </div>
         </section>
 
-        <!-- Sección de contacto con técnico (WhatsApp e Instagram) -->
+        <!-- Sección de contacto con técnico (WhatsApp, Instagram, Email con iconos PNG) -->
         <section id="contacto-tecnico" class="py-24 relative overflow-hidden bg-gradient-to-b from-brand-dark to-black/60">
             <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#2596BE 1px, transparent 1px); background-size: 24px 24px;"></div>
             <div class="container mx-auto px-6 lg:px-12 max-w-4xl relative z-10">
                 <div class="text-center reveal mb-12">
                     <span class="text-brand-accent font-tech text-sm uppercase tracking-widest block mb-2">¿Necesitás asistencia ahora?</span>
                     <h2 class="text-3xl md:text-5xl font-primary font-bold text-white mb-6">Contactá a un técnico <br> en segundos</h2>
-                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Escribinos por WhatsApp o seguinos en Instagram. Respondemos en menos de 30 minutos en horario hábil.</p>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Escribinos por WhatsApp, seguinos en Instagram o envianos un email. Respondemos en menos de 30 minutos en horario hábil.</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- WhatsApp -->
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- WhatsApp con ícono PNG -->
                     <div class="glass-panel p-8 rounded-2xl text-center hover:border-brand-accent transition-all reveal group">
-                        <div class="w-16 h-16 mx-auto bg-[#25D366]/10 rounded-full flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition">💬</div>
-                        <h3 class="text-2xl font-bold text-white mb-3">WhatsApp Comercial</h3>
+                        <div class="w-16 h-16 mx-auto mb-5 flex items-center justify-center">
+                            <img src="../wpp.png" alt="WhatsApp" class="social-icon w-12 h-12">
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">WhatsApp</h3>
                         <p class="text-gray-400 text-sm mb-5">Consultas técnicas, diagnóstico rápido o asistencia para descargar la herramienta.</p>
                         <a href="https://wa.me/5491154198091?text=Hola%20Almaexon,%20necesito%20soporte%20remoto%20para%20mi%20PC" 
                            target="_blank" 
                            class="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#20b859] transition-all shadow-lg">
                             📲 11 5419 8091
                         </a>
-                        <p class="text-xs text-gray-500 mt-4 font-tech">Respuesta típica: 15 minutos</p>
                     </div>
 
-                    <!-- Instagram -->
+                    <!-- Instagram con ícono PNG -->
                     <div class="glass-panel p-8 rounded-2xl text-center hover:border-brand-accent transition-all reveal group">
-                        <div class="w-16 h-16 mx-auto bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition">📸</div>
+                        <div class="w-16 h-16 mx-auto mb-5 flex items-center justify-center">
+                            <img src="../ig.png" alt="Instagram" class="social-icon w-12 h-12">
+                        </div>
                         <h3 class="text-2xl font-bold text-white mb-3">Instagram</h3>
                         <p class="text-gray-400 text-sm mb-5">Seguinos para tips de mantenimiento, novedades y contacto directo por DM.</p>
                         <a href="https://www.instagram.com/almaexon" 
@@ -317,18 +308,25 @@
                            class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg">
                             📷 @almaexon
                         </a>
-                        <p class="text-xs text-gray-500 mt-4 font-tech">Contenido útil todos los martes</p>
                     </div>
-                </div>
 
-                <!-- Email simplificado: solo contacto@almaexon.com -->
-                <div class="text-center mt-12 reveal">
-                    <p class="text-gray-500 text-sm">También podés escribirnos a <a href="mailto:contacto@almaexon.com" class="text-brand-accent hover:underline">contacto@almaexon.com</a></p>
+                    <!-- Email con ícono PNG -->
+                    <div class="glass-panel p-8 rounded-2xl text-center hover:border-brand-accent transition-all reveal group">
+                        <div class="w-16 h-16 mx-auto mb-5 flex items-center justify-center">
+                            <img src="../mail.png" alt="Email" class="social-icon w-12 h-12">
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Email</h3>
+                        <p class="text-gray-400 text-sm mb-5">Escribinos y te responderemos a la brevedad con toda la información.</p>
+                        <a href="mailto:contacto@almaexon.com" 
+                           class="inline-flex items-center gap-2 px-6 py-3 bg-brand-accent/20 text-brand-accent font-bold rounded-xl hover:bg-brand-accent hover:text-brand-dark transition-all border border-brand-accent/30">
+                            ✉️ contacto@almaexon.com
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Preguntas frecuentes rápidas -->
+        <!-- Preguntas frecuentes -->
         <section class="py-20 px-6 lg:px-12">
             <div class="container mx-auto max-w-4xl">
                 <div class="text-center reveal mb-12">
@@ -352,42 +350,39 @@
             </div>
         </section>
 
-        <!-- Call to action final (descarga + diagnóstico gratis) -->
+        <!-- Call to action final solo con descarga -->
         <section class="py-16 bg-brand-accent/10 border-y border-brand-accent/20">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-2xl md:text-3xl font-primary font-bold text-white mb-4">¿Listo para resolverlo?</h2>
                 <p class="text-gray-300 mb-8 max-w-lg mx-auto">Descargá la herramienta, ejecutala y contactanos. En pocos minutos tu equipo vuelve a funcionar.</p>
-                <div class="flex flex-col sm:flex-row gap-5 justify-center">
-                    <a href="/rustdesk_almaexon.exe" 
-                       class="inline-flex items-center gap-2 px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-xl hover:bg-white transition-all shadow-glow text-lg">
-                        📥 DESCARGAR HERRAMIENTA
-                    </a>
-                    <a href="/promo" 
-                       class="inline-flex items-center gap-2 px-8 py-4 border border-brand-accent/50 text-brand-accent font-bold rounded-xl hover:bg-brand-accent/10 transition-all text-lg">
-                        🩺 Diagnóstico gratis
-                    </a>
-                </div>
+                <a href="../rustdesk_almaexon.exe" 
+                   class="inline-flex items-center gap-2 px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-xl hover:bg-white transition-all shadow-glow text-lg">
+                    📥 DESCARGAR HERRAMIENTA
+                </a>
             </div>
         </section>
     </main>
 
-    <!-- Footer completo con redes y derechos -->
+    <!-- Footer completo -->
     <footer class="bg-[#070e1a] border-t border-white/5 py-12">
         <div class="container mx-auto px-6 lg:px-12 max-w-6xl">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="flex items-center gap-3">
-                    <img src="isotipo_Almaexon.png" alt="Almaexon" class="h-8 w-auto" onerror="this.src='Almaexon.png'">
-                    <span class="text-xl font-primary font-bold text-white">Almaexon</span>
-                </div>
+                <a href="https://almaexon.com" class="flex items-center gap-3 group" target="_blank" rel="noopener">
+                    <img src="../Almaexon.png" alt="Almaexon" class="h-8 w-auto object-contain transition-transform group-hover:scale-105">
+                    <span class="text-xl font-primary font-bold tracking-wide text-white">Almaexon</span>
+                </a>
                 <div class="flex gap-8">
                     <a href="https://wa.me/5491154198091" target="_blank" class="text-gray-400 hover:text-brand-accent transition flex items-center gap-2">
-                        <span class="text-xl">💬</span> WhatsApp
+                        <img src="../wpp.png" alt="WhatsApp" class="w-5 h-5">
+                        WhatsApp
                     </a>
                     <a href="https://www.instagram.com/almaexon" target="_blank" class="text-gray-400 hover:text-brand-accent transition flex items-center gap-2">
-                        <span class="text-xl">📷</span> Instagram
+                        <img src="../ig.png" alt="Instagram" class="w-5 h-5">
+                        Instagram
                     </a>
                     <a href="mailto:contacto@almaexon.com" class="text-gray-400 hover:text-brand-accent transition flex items-center gap-2">
-                        <span class="text-xl">✉️</span> Email
+                        <img src="../mail.png" alt="Email" class="w-5 h-5">
+                        Email
                     </a>
                 </div>
             </div>
@@ -398,7 +393,7 @@
         </div>
     </footer>
 
-    <!-- Scripts: mobile menu y scroll reveal -->
+    <!-- Scripts -->
     <script>
         // Mobile menu
         const btnMenu = document.getElementById('mobile-menu-btn');
@@ -422,7 +417,7 @@
         }, { threshold: 0.1 });
         revealEls.forEach(el => revealObs.observe(el));
 
-        // Smooth scroll para enlaces internos
+        // Smooth scroll para anclas
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
