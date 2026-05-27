@@ -6,32 +6,88 @@
     <title>Almaexon | En Mantenimiento</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0C1829; color: #FFFFFF; font-family: 'Roboto', sans-serif; }
+        body { 
+            background-color: #0C1829; 
+            color: #FFFFFF; 
+            font-family: 'Roboto', sans-serif; 
+        }
+        
+        /* Respiración mucho más amplia, lenta y sutil */
+        @keyframes breath-bg {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+            50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+        }
+
+        .animate-breath-bg {
+            animation: breath-bg 12s ease-in-out infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: radial-gradient(circle, rgba(37,150,190,0.08) 0%, rgba(12,24,41,0) 80%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Clase para la transición suave del texto */
+        .text-transition {
+            transition: opacity 0.8s ease-in-out;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
+<body class="min-h-screen flex flex-col items-center justify-center text-center px-6 md:px-12 relative overflow-hidden">
 
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(37,150,190,0.05) 0%, rgba(12,24,41,0) 70%); z-index: -1; pointer-events: none;"></div>
+    <div class="animate-breath-bg w-[150vw] h-[150vw] md:w-[100vw] md:h-[100vw]"></div>
 
-    <div class="max-w-md">
-        <div class="flex justify-center mb-6">
-            <img src="/Almaexon.png" alt="Almaexon" class="h-16 w-auto animate-pulse">
+    <div class="max-w-lg z-10 w-full">
+        
+        <div class="flex justify-center mb-8">
+            <img src="/Almaexon.png" alt="Almaexon" class="h-24 md:h-28 w-auto animate-pulse">
         </div>
         
-        <h1 class="text-2xl font-bold font-montserrat mb-2 tracking-widest text-white uppercase">Infraestructura en Optimización</h1>
-        <div class="h-1 w-16 bg-[#2596BE] mx-auto mb-6"></div>
+        <h1 class="text-2xl md:text-3xl font-bold font-montserrat mb-4 tracking-widest text-white uppercase leading-snug">
+            Infraestructura en Optimización
+        </h1>
         
-        <p class="text-gray-400 text-sm mb-8 leading-relaxed">
-            Estamos actualizando nuestra plataforma y preparando nuevas herramientas de soporte avanzado para empresas y profesionales.
-        </p>
+        <div class="h-1 w-20 bg-[#2596BE] mx-auto mb-8 rounded-full"></div>
         
-        <p class="text-xs font-mono text-[#2596BE]/60 tracking-wider">
+        <div class="h-28 md:h-24 flex items-center justify-center mb-6">
+            <p id="dynamic-text" class="text-gray-300 text-base md:text-lg leading-relaxed font-light text-transition opacity-100">
+                Redefiniendo el estándar del soporte técnico. Más rápido, más preciso, más inteligente.
+            </p>
+        </div>
+        
+        <p class="text-xs font-mono text-[#2596BE]/70 tracking-widest uppercase mt-4">
             Soporte Activo · Almaexon 2026
         </p>
     </div>
 
+    <script>
+        const phrases = [
+            "Redefiniendo el estándar del soporte técnico. Más rápido, más preciso, más inteligente.",
+            "Integrando el potencial técnico con el factor humano. Una infraestructura diseñada donde vos sos la pieza central.",
+            "Vos y tu tecnología trabajando en equipo para multiplicar tus resultados. Falta muy poco.",
+            "Optimizando todo detrás del telón para que ni vos ni tu empresa tengan que detenerse. En breve.",
+            "Construyendo el ecosistema tecnológico definitivo para el cuidado de tus equipos, de vos y de los tuyos."
+        ];
+
+        let currentIndex = 0;
+        const textElement = document.getElementById('dynamic-text');
+
+        // Función que rota el texto cada 23 segundos
+        setInterval(() => {
+            textElement.classList.replace('opacity-100', 'opacity-0');
+            
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % phrases.length;
+                textElement.textContent = phrases[currentIndex];
+                
+                textElement.classList.replace('opacity-0', 'opacity-100');
+            }, 800); 
+
+        }, 23000); // Se actualizó el tiempo a 23 segundos (23000 ms)
+    </script>
 </body>
 </html>
