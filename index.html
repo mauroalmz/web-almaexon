@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Almaexon | Infraestructura en evolución</title>
+    <title>Almaexon | Infraestructura en optimización</title>
     <meta name="description" content="Almaexon está mejorando su infraestructura para ofrecerte un soporte técnico más ágil, inteligente y humano.">
     <meta name="robots" content="noindex, follow">
     
@@ -47,7 +47,7 @@
             overflow-x: hidden;
         }
         
-        /* Fondo lento (14s) */
+        /* Fondo animado suave (14s) */
         .bg-glow {
             position: fixed;
             top: 50%;
@@ -80,28 +80,28 @@
             width: 100%;
         }
         
-        /* Logo con respiración más lenta (1.6s) */
+        /* Logo con respiración lenta (2.2s) y brillo muy sutil */
         .logo {
             width: 100px;
             height: auto;
             margin-bottom: 2rem;
-            filter: drop-shadow(0 0 6px rgba(37,150,190,0.6));
-            animation: softBreathing 1.6s ease-in-out infinite;
+            filter: drop-shadow(0 0 4px rgba(37,150,190,0.4));
+            animation: slowBreathing 2.2s ease-in-out infinite;
             will-change: transform, filter;
         }
         
-        @keyframes softBreathing {
+        @keyframes slowBreathing {
             0% {
                 transform: scale(1);
-                filter: drop-shadow(0 0 6px rgba(37,150,190,0.5));
+                filter: drop-shadow(0 0 4px rgba(37,150,190,0.35));
             }
             50% {
-                transform: scale(1.04);
-                filter: drop-shadow(0 0 14px rgba(37,150,190,0.75));
+                transform: scale(1.02);
+                filter: drop-shadow(0 0 10px rgba(37,150,190,0.6));
             }
             100% {
                 transform: scale(1);
-                filter: drop-shadow(0 0 6px rgba(37,150,190,0.5));
+                filter: drop-shadow(0 0 4px rgba(37,150,190,0.35));
             }
         }
         
@@ -166,7 +166,7 @@
                 animation: none;
             }
             .logo {
-                filter: drop-shadow(0 0 6px rgba(37,150,190,0.6));
+                filter: drop-shadow(0 0 4px rgba(37,150,190,0.4));
                 transform: scale(1);
             }
             #dynamic-text {
@@ -221,7 +221,7 @@
             let currentIdx = Math.floor(Math.random() * phrases.length);
             textEl.textContent = phrases[currentIdx];
             
-            const INTERVAL_MS = 20000;
+            const INTERVAL_MS = 10000;
             const FADE_DURATION = 400;
             
             setInterval(() => {
