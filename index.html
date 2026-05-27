@@ -2,97 +2,225 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almaexon | En Mantenimiento</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Almaexon | Infraestructura en evolución</title>
+    <meta name="description" content="Almaexon está mejorando su infraestructura para ofrecerte un soporte técnico más ágil, inteligente y humano. Volvemos en breve.">
+    <meta name="robots" content="noindex, follow">
+    
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:title" content="Almaexon - Evolucionando para vos">
+    <meta property="og:description" content="Estamos optimizando todo detrás de escena. Pronto vas a experimentar un salto en calidad y velocidad.">
+    <meta property="og:image" content="/Almaexon.png">
+    <meta property="og:url" content="https://almaexon.com">
+    <meta name="twitter:card" content="summary">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500&display=swap" rel="stylesheet">
+    
     <style>
-        body { 
-            background-color: #0C1829; 
-            color: #FFFFFF; 
-            font-family: 'Roboto', sans-serif; 
+        /* Reset y variables */
+        :root {
+            --bg-primary: #0C1829;
+            --accent: #2596BE;
+            --accent-glow: rgba(37,150,190,0.15);
+            --text-light: #E2E8F0;
+            --text-muted: #94A3B8;
         }
         
-        /* Respiración con mayor escala y opacidad para que se note en móviles y PC */
-        @keyframes breath-bg {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        .animate-breath-bg {
-            animation: breath-bg 8s ease-in-out infinite; /* Ciclo ajustado a 8s para ser más perceptible */
-            position: absolute;
+        
+        body {
+            background-color: var(--bg-primary);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Fondo animado ultra suave - sin desenfoque para evitar pixelado */
+        .bg-glow {
+            position: fixed;
             top: 50%;
             left: 50%;
-            /* Gradiente con mayor presencia (0.2 de opacidad base) */
-            background: radial-gradient(circle, rgba(37,150,190,0.2) 0%, rgba(12,24,41,0) 70%);
-            z-index: -1;
+            width: 100vmax;
+            height: 100vmax;
+            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(12,24,41,0) 80%);
+            transform: translate(-50%, -50%);
+            animation: softPulse 14s ease-in-out infinite;
+            z-index: 0;
             pointer-events: none;
+            will-change: transform, opacity;
         }
-
-        /* Clase para la transición suave del texto */
-        .text-transition {
-            transition: opacity 0.8s ease-in-out;
+        
+        @keyframes softPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.08);
+                opacity: 0.8;
+            }
+        }
+        
+        /* Contenido principal */
+        .content {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            width: 100%;
+        }
+        
+        /* Logo */
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+        }
+        
+        /* Título */
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            letter-spacing: -0.01em;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+        
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+        
+        /* Caja del texto dinámico */
+        .message-box {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+            padding: 0 1rem;
+        }
+        
+        #dynamic-text {
+            font-size: clamp(0.85rem, 3.5vw, 1rem);
+            line-height: 1.6;
+            font-weight: 400;
+            color: var(--text-muted);
+            transition: opacity 0.5s ease;
+            opacity: 1;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        
+        /* Contacto */
+        .contact-link {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(148,163,184,0.2);
+            padding-top: 1.5rem;
+            display: inline-block;
+        }
+        
+        .contact-link a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .contact-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Accesibilidad: preferencia de movimiento reducido */
+        @media (prefers-reduced-motion: reduce) {
+            .bg-glow {
+                animation: none;
+                opacity: 0.3;
+            }
+            #dynamic-text {
+                transition: none;
+            }
+        }
+        
+        /* Ajustes móviles */
+        @media (max-width: 480px) {
+            .logo {
+                width: 75px;
+            }
+            .message-box {
+                min-height: 120px;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center text-center px-6 md:px-12 relative overflow-hidden">
+<body>
 
-    <div class="animate-breath-bg w-[150vw] h-[150vw] md:w-[80vw] md:h-[80vw]"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
 
-    <div class="max-w-lg z-10 w-full">
+    <main class="content">
+        <img src="/Almaexon.png" alt="Almaexon" class="logo" width="100" height="100" loading="eager">
         
-        <div class="flex justify-center mb-8">
-            <img src="/Almaexon.png" alt="Almaexon" class="h-24 md:h-28 w-auto animate-pulse">
+        <h1>Infraestructura en evolución</h1>
+        <div class="divider"></div>
+        
+        <div class="message-box">
+            <p id="dynamic-text" aria-live="polite"></p>
         </div>
         
-        <h1 class="text-2xl md:text-3xl font-bold font-montserrat mb-4 tracking-widest text-white uppercase leading-snug">
-            Infraestructura en Optimización
-        </h1>
-        
-        <div class="h-1 w-20 bg-[#2596BE] mx-auto mb-8 rounded-full"></div>
-        
-        <div class="h-28 md:h-24 flex items-center justify-center mb-6 px-2">
-            <p id="dynamic-text" class="text-slate-300 text-sm md:text-base leading-relaxed font-light tracking-wide text-transition opacity-100">
-                </p>
-        </div>
-        
-        <p class="text-xs font-mono text-[#2596BE]/60 tracking-widest uppercase mt-4">
-            Soporte Activo · Almaexon 2026
+        <p class="contact-link">
+            📩 Contacto operativo: <a href="mailto:contacto@almaexon.com">contacto@almaexon.com</a>
         </p>
-    </div>
+        
+        <p class="text-[0.65rem] mt-6 opacity-50 tracking-wide">Almaexon · Soporte Activo · 2026</p>
+    </main>
 
     <script>
-        const phrases = [
-            "Redefiniendo el estándar del soporte técnico. Más rápido, más preciso, más inteligente.",
-            "Integrando el potencial técnico con el factor humano. Una infraestructura diseñada donde vos sos la pieza central.",
-            "Vos y tu tecnología trabajando en equipo para multiplicar tus resultados. Falta muy poco.",
-            "Optimizando todo detrás del telón para que ni vos ni tu empresa tengan que detenerse. En breve.",
-            "Construyendo el ecosistema tecnológico definitivo para el cuidado de tus equipos, de vos y de los tuyos."
-        ];
-
-        const textElement = document.getElementById('dynamic-text');
-        
-        // Elegir una frase aleatoria inicial
-        let currentIndex = Math.floor(Math.random() * phrases.length);
-        
-        // Mostrar la frase elegida inmediatamente al cargar la página
-        textElement.textContent = phrases[currentIndex];
-
-        // Función que rota el texto cada 23 segundos
-        setInterval(() => {
-            textElement.classList.replace('opacity-100', 'opacity-0');
+        (function() {
+            const phrases = [
+                "Redefiniendo el estándar del soporte técnico. Más rápido, más preciso, más humano.",
+                "Integramos tecnología y personas. Una infraestructura diseñada con vos en el centro.",
+                "Vos y tu tecnología trabajando en equipo para multiplicar tus resultados. Muy pronto.",
+                "Optimizamos cada detalle para que nada detenga tu productividad. En breve.",
+                "Construyendo el ecosistema tecnológico definitivo para el cuidado de tus equipos."
+            ];
             
-            setTimeout(() => {
-                currentIndex = (currentIndex + 1) % phrases.length;
-                textElement.textContent = phrases[currentIndex];
-                
-                textElement.classList.replace('opacity-0', 'opacity-100');
-            }, 800); 
-
-        }, 23000); 
+            const textEl = document.getElementById('dynamic-text');
+            if (!textEl) return;
+            
+            let currentIdx = Math.floor(Math.random() * phrases.length);
+            textEl.textContent = phrases[currentIdx];
+            
+            const INTERVAL_MS = 20000;
+            const FADE_DURATION = 400;
+            
+            setInterval(() => {
+                textEl.style.opacity = '0';
+                setTimeout(() => {
+                    currentIdx = (currentIdx + 1) % phrases.length;
+                    textEl.textContent = phrases[currentIdx];
+                    textEl.style.opacity = '1';
+                }, FADE_DURATION);
+            }, INTERVAL_MS);
+        })();
     </script>
 </body>
 </html>
